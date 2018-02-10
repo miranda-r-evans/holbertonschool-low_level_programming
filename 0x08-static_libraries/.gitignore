@@ -1,0 +1,7 @@
+*.c
+
+*.o
+
+quote
+
+liball.a
