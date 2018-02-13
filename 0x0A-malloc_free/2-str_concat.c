@@ -13,6 +13,7 @@ char *str_concat(char *s1, char *s2)
 {
 	char *array = NULL;
 	char *array_cpy;
+	int len = 0;
 
 	if (s1 == NULL)
 		*s1 = '\0';
@@ -20,7 +21,18 @@ char *str_concat(char *s1, char *s2)
 	if (s2 == NULL)
 		*s2 = '\0';
 
-	array = malloc(sizeof(s1) + sizeof(s2));
+	array_cpy = s1;
+	for (; *array_cpy != '\0'; len++)
+	{
+		array_cpy++;
+	}
+	array_cpy = s2;
+	for (; *array_cpy != '\0'; len++)
+	{
+		array_cpy++;
+	}
+
+	array = malloc(sizeof(char) * (len + 1));
 	if (array == NULL)
 		return (NULL);
 	array_cpy = array;
