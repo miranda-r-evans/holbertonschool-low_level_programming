@@ -40,11 +40,12 @@ char **strtow(char *str)
 
 	if (str == NULL || *str == '\0')
 	{
-		printf("exiting with null");
 		return (NULL);
 	}
 
 	words = find_words(str);
+	if (words == 0)
+		return (NULL);
 
 	array = malloc(sizeof(char *) * (words + 1));
 	if (array == NULL)
