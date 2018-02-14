@@ -35,5 +35,7 @@ char *_strdup(char *str)
 		str++;
 	}
 
+	*array_cpy = '\0';
+
 	return (array);
 }

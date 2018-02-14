@@ -14,17 +14,15 @@
 char *str_concat(char *s1, char *s2)
 {
 	char *array = NULL; char *array_cpy; char *s1_cpy = s1;
-	char *s2_cpy = s2; int len = 0;
+	char *s2_cpy = s2; int len = 0; char _var = '\0';
 
 	if (s1 == NULL)
 	{
-		s1_cpy = malloc(sizeof(char));
-		*s1_cpy = '\0';
+		s1_cpy = &_var;
 	}
 	if (s2 == NULL)
 	{
-		s2_cpy = malloc(sizeof(char));
-		*s2_cpy = '\0';
+		s2_cpy = &_var;
 	}
 	array_cpy = s1_cpy;
 	for (; *array_cpy != '\0'; len++)
