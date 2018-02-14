@@ -42,7 +42,6 @@ char **strtow(char *str)
 	{
 		return (NULL);
 	}
-
 	words = find_words(str);
 	if (words == 0)
 		return (NULL);
@@ -52,35 +51,28 @@ char **strtow(char *str)
 		return (NULL);
 
 	strCpy = str;
-
 	for (i = 0; i < words; i++)
 	{
 		while (*strCpy == ' ')
 			strCpy++;
-
 		for (len = 0; *strCpy != ' ' && *strCpy != '\0'; len++)
 			strCpy++;
 
 		array[i] = malloc(sizeof(char) * (len + 1));
-
 		if (array[i] == NULL)
 		{
 			i--;
 			for (; i <= 0; i--)
 				free(array[i]);
-
 			free(array);
 			return (NULL);
 		}
-
 		strCpy -= len;
-
 		for (j = 0; j < len; j++)
 		{
 			array[i][j] = *strCpy;
 			strCpy++;
 		}
 	}
-
 	return (array);
 }
