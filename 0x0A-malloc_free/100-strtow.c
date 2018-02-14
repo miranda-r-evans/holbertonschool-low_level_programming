@@ -63,7 +63,14 @@ char **strtow(char *str)
 		array[i] = malloc(sizeof(char) * (len + 1));
 
 		if (array[i] == NULL)
+		{
+			i--;
+			for (; i <= 0; i--)
+				free(array[i]);
+
+			free(array);
 			return (NULL);
+		}
 
 		strCpy -= len;
 
