@@ -13,11 +13,8 @@
  */
 char *str_concat(char *s1, char *s2)
 {
-	char *array = NULL;
-	char *array_cpy;
-	int len = 0;
-	char *s1_cpy = s1;
-	char *s2_cpy = s2;
+	char *array = NULL; char *array_cpy; char *s1_cpy = s1;
+	char *s2_cpy = s2; int len = 0;
 
 	if (s1 == NULL)
 	{
@@ -32,9 +29,11 @@ char *str_concat(char *s1, char *s2)
 	array_cpy = s1_cpy;
 	for (; *array_cpy != '\0'; len++)
 		array_cpy++;
+
 	array_cpy = s2_cpy;
 	for (; *array_cpy != '\0'; len++)
 		array_cpy++;
+
 	array = malloc(sizeof(char) * (len + 1));
 	if (array == NULL)
 		return (NULL);
