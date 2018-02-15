@@ -120,20 +120,20 @@ int main(int ac, char **av)
 
 	if (ac != 3)
 	{
-		printf("Error\n");
-		exit(98);
+		_putchar('E'); _putchar('r'); _putchar('r'); _putchar('o');
+		_putchar('r'); _putchar('\n'); exit(98);
 	}
 	for (len1 = 0; av[1][len1] != '\0'; len1++)
 		if (av[1][len1] < '0' || av[1][len1] > '9')
 		{
-			printf("Error\n");
-			exit(98);
+			_putchar('E'); _putchar('r'); _putchar('r');
+			_putchar('o'); _putchar('r'); _putchar('\n'); exit(98);
 		}
 	for (len2 = 0; av[2][len2] != '\0'; len2++)
 		if (av[2][len2] < '0' || av[2][len2] > '9')
 		{
-			printf("Error\n");
-			exit(98);
+			_putchar('E'); _putchar('r'); _putchar('r');
+			_putchar('o'); _putchar('r'); _putchar('\n'); exit(98);
 		}
 	temp = create_array(len1 + len2 + 1, '0');
 	if (temp == NULL)
