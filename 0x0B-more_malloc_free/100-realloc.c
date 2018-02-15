@@ -3,11 +3,20 @@
 #include <stdlib.h>
 #include <string.h>
 
+/**
+ * _realloc - reallocates memory that has previously been malloc'd
+ * @ptr: old ptr we are reallocating
+ * @old_size: size of old memory we are reallocating
+ * @new_size: size of new memory we want to reallocate
+ *
+ * Return: pointer to new memory, or NULL if failure
+ */
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
 	char *new_ptr = NULL;
 	char *ptr_cpy;
 	unsigned int i;
+	char *old_ptr = (char *)ptr;
 
 	if (new_size == old_size)
 		return (ptr);
@@ -30,12 +39,12 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 
 	for (i = 0; i < old_size; i++)
 	{
-		*ptr_cpy = *(char *)ptr;
+		*ptr_cpy = *old_ptr;
 		ptr_cpy++;
-		ptr = ptr + sizeof(char);
+		old_ptr++;
 	}
 
-	free(ptr); //do i need to reset this first?
+	free(ptr);
 
 	return (new_ptr);
 }
