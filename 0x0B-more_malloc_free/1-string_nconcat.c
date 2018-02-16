@@ -40,7 +40,7 @@ char *string_nconcat(char *s1, char *s2, unsigned int n)
 	char *s1_cpy = s1;
 	char *s2_cpy = s2;
 	char _var = '\0';
-	char *str;
+	char *str = NULL;
 	char *str_st;
 	int len;
 	unsigned int i;
@@ -53,6 +53,8 @@ char *string_nconcat(char *s1, char *s2, unsigned int n)
 	len = len_finder(s1_cpy, s2_cpy, n);
 
 	str = malloc(len + 1);
+	if (str == NULL)
+		return NULL;
 
 	str_st = str;
 
