@@ -35,30 +35,27 @@ char *create_array(unsigned int size, char c)
 
 /**
  * mult - multiplies two number strings
- * @prd: where the product is stored
- * @tmp: used for calculating product
+ * @prod: where the product is stored
+ * @temp: used for calculating product
  * @len1: length of first factor
  * @len2: length of second factor
  * @av: command line input
  *
  * Return: pointer to character array containing product
  */
-char *mult(char *prd, char *tmp, int len1, int len2, char **av)
+char *mult(char *prod, char *temp, int len1, int len2, char **av)
 {
 	int i, j, k, l = 0;
 	int digit, d1, d2, carry = 0;
 
 	for (i = len1 - 1; i >= 0; i--)
 	{
-		k = len1 + len2 - 1;
-		for (j = len2 - 1; j >= -1; j--)
+		k = len1 + len2;
+		for (j = len2 - 1; j >= 0; j--)
 		{
 			d1 = av[1][i] - '0';
 			d2 = av[2][j] - '0';
-			if (j >= 0)
-				digit = d1 * d2 + carry;
-			else
-				digit = carry;
+			digit = d1 * d2 + carry;
 			if (digit > 9)
 			{
 				carry = digit / 10;
@@ -66,25 +63,28 @@ char *mult(char *prd, char *tmp, int len1, int len2, char **av)
 			}
 			else
 				carry = 0;
-			tmp[k] = digit + '0';
+			temp[k] = digit + '0';
 			k--;
 		}
-		for (j = len2 + len1 - 1; j >= 0; j--)
+		if (j == -1)
+			temp[k] = carry + '0';
+		carry = 0;
+		for (j = len2 + len1; j >= 0; j--)
 		{
-			digit = tmp[j] - '0' + prd[j - l] - '0' + carry;
+			digit = temp[j] - '0' + prod[j - l] - '0' + carry;
 			if (digit > 9)
 			{
-				carry = digit / 10;
+				carry = 1;
 				digit = digit % 10;
 			}
 			else
 				carry = 0;
-			prd[j - l] = digit + '0';
+			prod[j - l] = digit + '0';
 		}
 		l++;
 	}
 
-	return (prd);
+	return (prod);
 }
 
 /**
@@ -97,9 +97,9 @@ void print_prod(char *prod, int len1, int len2)
 {
 	int i;
 
-	for (i = 0; prod[i] == '0'; i++)
+	for (i = 0; prod[i] == '0' && i < len1 + len2; i++)
 		;
-	for (; i < len1 + len2; i++)
+	for (; i <= len1 + len2; i++)
 	{
 		_putchar(prod[i]);
 	}
@@ -135,16 +135,20 @@ int main(int ac, char **av)
 			_putchar('E'); _putchar('r'); _putchar('r');
 			_putchar('o'); _putchar('r'); _putchar('\n'); exit(98);
 		}
-	temp = create_array(len1 + len2 + 1, '0');
+	temp = create_array(len1 + len2 + 2, '0');
 	if (temp == NULL)
 		exit(98);
-	prod = create_array(len1 + len2 + 1, '0');
+	prod = create_array(len1 + len2 + 2, '0');
 	if (prod == NULL)
 		exit(98);
+
+	temp[len1 + len2 + 1] = '\0';
+	prod[len1 + len2 + 1] = '\0';
 
 	prod = mult(prod, temp, len1, len2, av);
 
 	print_prod(prod, len1, len2);
+
 	free(prod);
 	free(temp);
 
