@@ -43,9 +43,9 @@ char *create_array(unsigned int size, char c)
  *
  * Return: pointer to character array containing product
  */
-char *mult(char *prd, char *tmp, long long int len1, long long len2, char **av)
+char *mult(char *prd, char *tmp, int len1, int len2, char **av)
 {
-	long long int i, j, k, l = 0;
+	int i, j, k, l = 0;
 	int digit, d1, d2, carry = 0;
 
 	for (i = len1 - 1; i >= 0; i--)
@@ -93,7 +93,7 @@ char *mult(char *prd, char *tmp, long long int len1, long long len2, char **av)
  * @len1: length of first factor
  * @len2: length of second factor
  */
-void print_prod(char *prod, long long int len1, long long int len2)
+void print_prod(char *prod, int len1, int len2)
 {
 	int i;
 
@@ -115,7 +115,7 @@ void print_prod(char *prod, long long int len1, long long int len2)
  */
 int main(int ac, char **av)
 {
-	long long int len1, len2;
+	int len1, len2;
 	char *temp = NULL; char *prod = NULL;
 
 	if (ac != 3)
