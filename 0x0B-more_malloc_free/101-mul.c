@@ -4,153 +4,175 @@
 #include <string.h>
 
 /**
- * create_array - create an array of size size, initialized with a char c
- * @size: size of the array
- * @c: character array is initialized with
+ * _print_err - prints error and exits program
  *
- * Return: a pointer to the array, or NULL is failure
+ * Return: nothing
  */
-char *create_array(unsigned int size, char c)
+void _print_err(void)
 {
-	char *array = NULL;
-	unsigned int i;
-	char *array_cpy;
+/* I apologize for how ridiculously this code is written. */
+/* It's because of holberton function length maximums. */
 
-	if (size == 0)
-		return (NULL);
-
-	array = malloc(sizeof(char) * size * 2);
-	if (array == NULL)
-		return (NULL);
-	array_cpy = array;
-
-	for (i = 0; i < size; i++)
-	{
-		*array_cpy = c;
-		array_cpy++;
-	}
-
-	return (array);
+	_putchar('E'); _putchar('r'); _putchar('r');
+	_putchar('o'); _putchar('r'); _putchar('\n');
+	exit(98);
 }
 
 /**
- * mult - multiplies two number strings
- * @prod: where the product is stored
- * @temp: used for calculating product
- * @len1: length of first factor
- * @len2: length of second factor
- * @av: command line input
+ * _strlen - counts string length and calls print_err if there is a problem
+ * @str: string thats length is counted
  *
- * Return: pointer to character array containing product
+ * Return: string length
  */
-char *mult(char *prod, char *temp, int len1, int len2, char **av)
+int _strlen(char *str)
 {
-	int i, j, k, l = 0;
-	int digit, d1, d2, carry = 0;
+	int len;
 
-	for (i = len1 - 1; i >= 0; i--)
+	for (len = 0; *str != '\0'; len++)
 	{
-		k = len1 + len2;
-		for (j = len2 - 1; j >= 0; j--)
-		{
-			d1 = av[1][i] - '0';
-			d2 = av[2][j] - '0';
-			digit = d1 * d2 + carry;
-			if (digit > 9)
-			{
-				carry = digit / 10;
-				digit = digit % 10;
-			}
-			else
-				carry = 0;
-			temp[k] = digit + '0';
-			k--;
-		}
-		if (j == -1)
-			temp[k] = carry + '0';
-		carry = 0;
-		for (j = len2 + len1; j >= 0; j--)
-		{
-			digit = temp[j] - '0' + prod[j - l] - '0' + carry;
-			if (digit > 9)
-			{
-				carry = 1;
-				digit = digit % 10;
-			}
-			else
-				carry = 0;
-			prod[j - l] = digit + '0';
-		}
-		l++;
+		if (*str > '9' || *str < '0')
+			_print_err;
+
+		str++;
 	}
 
-	return (prod);
+	return (len);
 }
 
 /**
- * print_prod - prints the product of multiplying
- * @prod: array where product is stored
- * @len1: length of first factor
- * @len2: length of second factor
+ * print_prod - prints product of the multiplication
+ * @prod: product that is printed
+ * @len1: used for printing
+ * @len2: used for printing
  */
 void print_prod(char *prod, int len1, int len2)
 {
-	int i;
+	int i = 0;
 
-	for (i = 0; prod[i] == '0' && i < len1 + len2; i++)
-		;
-	for (; i <= len1 + len2; i++)
+	while (*prod == '0' && i < len1 + len2)
 	{
-		_putchar(prod[i]);
+		i++;
+		prod++;
+	}
+	for (; i < len1 + len2 + 1; i++)
+	{
+		_putchar(*prod);
+		prod++;
 	}
 	_putchar('\n');
 }
 
 /**
- * main - multiplies two number strings from input
+ * mult - multiplies two strings
+ * @len1: a
+ * @len2: b
+ * @s1_st: c
+ * @s1_cpy: d
+ * @s1_end: e
+ * @s2_st: f
+ * @s2_cpy: g
+ * @prod_st: h
+ * @temp_st: i
+ * @prod_cpy: j
+ * @temp_cpy: k
+ * @prod_end: l
+ * @s2_end: m
+ * @temp_end: o
+ */
+void mult(int len1, int len2, char *s1_st, char *s1_cpy,
+	  char *s1_end, char *s2_st, char *s2_cpy, char *prod_st, char *temp_st,
+	  char *prod_cpy, char *temp_cpy, char *prod_end, char *s2_end,
+	  char *temp_end)
+{
+	int digit, carry = 0;
+
+	while (s2_cpy >= s2_st)
+	{
+		s2_cpy--; temp_cpy = temp_end - 1; s1_cpy = s1_end - 1;
+		while (s1_cpy >= s1_st)
+		{
+			digit = (*s1_cpy - '0') * (*s2_cpy - '0') + carry;
+			if (digit > 9)
+			{
+				carry = digit / 10; digit = digit % 10;
+			}
+			else
+				carry = 0;
+			*temp_cpy = digit + '0'; temp_cpy--;
+			if (s1_cpy == s1_st)
+				break;
+			s1_cpy--;
+		}
+		*temp_cpy = carry + '0'; carry = 0; temp_cpy = temp_end - 1;
+		if (prod_end > prod_st)
+			prod_end--;
+		prod_cpy = prod_end;
+		while (temp_cpy >= temp_st)
+		{
+			digit = (*temp_cpy - '0') + (*prod_cpy - '0') + carry;
+			if (digit > 9)
+			{
+				carry = 1; digit = digit % 10;
+			}
+			else
+				carry = 0;
+			*prod_cpy = digit + '0';
+			if (prod_cpy == prod_st || temp_cpy == temp_st)
+				break;
+			temp_cpy--; prod_cpy--;
+		}
+		if (s2_cpy == s2_st)
+			break;
+	}
+}
+
+/**
+ * main - multiplies the numbers given from input
  * @ac: number of elements in av
- * @av: inputs from command line, numbs to be multiplied
+ * @av: input from command line
  *
  * Return: 0 (Always Success)
  */
 int main(int ac, char **av)
 {
-	int len1, len2;
-	char *temp = NULL; char *prod = NULL;
+	int len1, len2, i = 0;
+	char *s1_st = av[1];
+	char *s1_cpy = s1_st;
+	char *s1_end;
+	char *s2_st = av[2];
+	char *s2_cpy = s2_st;
+	char *s2_end;
+	char *prod_st = NULL;
+	char *temp_st = NULL;
+	char *prod_cpy;
+	char *temp_cpy;
+	char *prod_end;
+	char *temp_end;
 
 	if (ac != 3)
+		_print_err;
+	len1 = _strlen(s1_cpy); s1_end = s1_st + len1; len2 = _strlen(s2_cpy);
+	s2_end = s2_st + len2; prod_st = malloc(len1 + len2 + 2);
+	if (prod_st == NULL)
+		_print_err;
+	temp_st = malloc(len1 + len2 + 2);
+	if (temp_st == NULL)
+		_print_err;
+	prod_cpy = prod_st; prod_end = prod_st + len1 + len2 + 1;
+	while (prod_cpy < prod_end)
 	{
-		_putchar('E'); _putchar('r'); _putchar('r'); _putchar('o');
-		_putchar('r'); _putchar('\n'); exit(98);
+		*prod_cpy = '0'; prod_cpy++;
 	}
-	for (len1 = 0; av[1][len1] != '\0'; len1++)
-		if (av[1][len1] < '0' || av[1][len1] > '9')
-		{
-			_putchar('E'); _putchar('r'); _putchar('r');
-			_putchar('o'); _putchar('r'); _putchar('\n'); exit(98);
-		}
-	for (len2 = 0; av[2][len2] != '\0'; len2++)
-		if (av[2][len2] < '0' || av[2][len2] > '9')
-		{
-			_putchar('E'); _putchar('r'); _putchar('r');
-			_putchar('o'); _putchar('r'); _putchar('\n'); exit(98);
-		}
-	temp = create_array(len1 + len2 + 2, '0');
-	if (temp == NULL)
-		exit(98);
-	prod = create_array(len1 + len2 + 2, '0');
-	if (prod == NULL)
-		exit(98);
-
-	temp[len1 + len2 + 1] = '\0';
-	prod[len1 + len2 + 1] = '\0';
-
-	prod = mult(prod, temp, len1, len2, av);
-
-	print_prod(prod, len1, len2);
-
-	free(prod);
-	free(temp);
-
+	*prod_cpy = '\0'; temp_cpy = temp_st;
+	temp_end = temp_st + len1 + len2 + 1;
+	while (temp_cpy < temp_end)
+	{
+		*temp_cpy = '0'; temp_cpy++;
+	}
+	*temp_cpy = '\0'; s2_cpy = s2_end;
+	mult(len1, len2, s1_st, s1_cpy, s1_end, s2_st, s2_cpy,
+	     prod_st, temp_st, prod_cpy, temp_cpy, prod_end, s2_end, temp_end);
+	prod_cpy = prod_st; print_prod(prod_cpy, len1, len2);
+	free(prod_st); free(temp_st);
 	return (0);
 }
