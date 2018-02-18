@@ -5,8 +5,6 @@
 
 /**
  * _print_err - prints error and exits program
- *
- * Return: nothing
  */
 void _print_err(void)
 {
@@ -31,7 +29,7 @@ int _strlen(char *str)
 	for (len = 0; *str != '\0'; len++)
 	{
 		if (*str > '9' || *str < '0')
-			_print_err;
+			_print_err();
 
 		str++;
 	}
@@ -64,8 +62,6 @@ void print_prod(char *prod, int len1, int len2)
 
 /**
  * mult - multiplies two strings
- * @len1: a
- * @len2: b
  * @s1_st: c
  * @s1_cpy: d
  * @s1_end: e
@@ -79,9 +75,9 @@ void print_prod(char *prod, int len1, int len2)
  * @s2_end: m
  * @temp_end: o
  */
-void mult(int len1, int len2, char *s1_st, char *s1_cpy,
+void mult(char *s1_st, char *s1_cpy,
 	  char *s1_end, char *s2_st, char *s2_cpy, char *prod_st, char *temp_st,
-	  char *prod_cpy, char *temp_cpy, char *prod_end, char *s2_end,
+	  char *prod_cpy, char *temp_cpy, char *prod_end,
 	  char *temp_end)
 {
 	int digit, carry = 0;
@@ -135,7 +131,7 @@ void mult(int len1, int len2, char *s1_st, char *s1_cpy,
  */
 int main(int ac, char **av)
 {
-	int len1, len2, i = 0;
+	int len1, len2;
 	char *s1_st = av[1];
 	char *s1_cpy = s1_st;
 	char *s1_end;
@@ -150,14 +146,14 @@ int main(int ac, char **av)
 	char *temp_end;
 
 	if (ac != 3)
-		_print_err;
+		_print_err();
 	len1 = _strlen(s1_cpy); s1_end = s1_st + len1; len2 = _strlen(s2_cpy);
 	s2_end = s2_st + len2; prod_st = malloc(len1 + len2 + 2);
 	if (prod_st == NULL)
-		_print_err;
+		_print_err();
 	temp_st = malloc(len1 + len2 + 2);
 	if (temp_st == NULL)
-		_print_err;
+		_print_err();
 	prod_cpy = prod_st; prod_end = prod_st + len1 + len2 + 1;
 	while (prod_cpy < prod_end)
 	{
@@ -170,8 +166,8 @@ int main(int ac, char **av)
 		*temp_cpy = '0'; temp_cpy++;
 	}
 	*temp_cpy = '\0'; s2_cpy = s2_end;
-	mult(len1, len2, s1_st, s1_cpy, s1_end, s2_st, s2_cpy,
-	     prod_st, temp_st, prod_cpy, temp_cpy, prod_end, s2_end, temp_end);
+	mult(s1_st, s1_cpy, s1_end, s2_st, s2_cpy,
+	     prod_st, temp_st, prod_cpy, temp_cpy, prod_end, temp_end);
 	prod_cpy = prod_st; print_prod(prod_cpy, len1, len2);
 	free(prod_st); free(temp_st);
 	return (0);
