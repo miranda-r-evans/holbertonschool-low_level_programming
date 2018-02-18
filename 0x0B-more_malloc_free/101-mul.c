@@ -9,8 +9,7 @@
 void _print_err(void)
 {
 /* I apologize for how ridiculously this code is written. */
-/* It's because of holberton function length maximums. */
-
+/* It's because of Holberton maximum string length reqs. */
 	_putchar('E'); _putchar('r'); _putchar('r');
 	_putchar('o'); _putchar('r'); _putchar('\n');
 	exit(98);
@@ -72,7 +71,6 @@ void print_prod(char *prod, int len1, int len2)
  * @prod_cpy: j
  * @temp_cpy: k
  * @prod_end: l
- * @s2_end: m
  * @temp_end: o
  */
 void mult(char *s1_st, char *s1_cpy,
