@@ -35,17 +35,27 @@ dog_t *new_dog(char *name, float age, char *owner)
 	char *o_ptr;
 	int i;
 
+	if (name == NULL || owner == NULL)
+		return (NULL);
+
 	my_dog = malloc(sizeof(dog_t));
 	if (my_dog == NULL)
 		return (NULL);
 
 	my_dog->name = malloc(n_len + 1);
 	if (my_dog->name == NULL)
+	{
+		free(my_dog);
 		return (NULL);
+	}
 
 	my_dog->owner = malloc(o_len + 1);
 	if (my_dog->owner == NULL)
+	{
+		free(my_dog->name);
+		free(my_dog);
 		return (NULL);
+	}
 
 	n_ptr = my_dog->name;
 	for (i = 0; i < n_len + 1; i++)
