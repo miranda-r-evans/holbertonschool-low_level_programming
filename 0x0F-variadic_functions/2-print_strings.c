@@ -2,6 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/**
+ * print_strings - prints string from input
+ * @separator: separator printed inbetween input
+ * @n: number of inputs to print
+ */
 void print_strings(const char *separator, const unsigned int n, ...)
 {
 	va_list ap;
