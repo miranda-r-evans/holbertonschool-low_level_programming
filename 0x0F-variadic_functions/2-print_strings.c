@@ -15,7 +15,10 @@ void print_strings(const char *separator, const unsigned int n, ...)
 	const char *sep = "";
 
 	if (n == 0)
+	{
+		printf("\n");
 		exit(0);
+	}
 
 	if (separator != NULL)
 		sep = separator;
