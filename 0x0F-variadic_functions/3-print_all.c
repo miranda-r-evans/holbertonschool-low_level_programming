@@ -23,14 +23,12 @@ void print_all(const char * const format, ...)
 {
 	va_list ap;
 	unsigned int i = 0;
-	char *holder;
-	char *sep0 = "";
-	char *sep1 = ", ";
+	char *holder, *sep0 = "", *sep1 = ", ";
 
 	if (format == NULL)
-		return;
+		printf("(nil)");
 	va_start(ap, format);
-	while (format[i] != '\0')
+	while (format != NULL && format[i] != '\0')
 	{
 		switch (format[i])
 		{
@@ -54,6 +52,7 @@ void print_all(const char * const format, ...)
 			sep0 = sep1;
 			holder = va_arg(ap, char *);
 			pr_str(holder);
+			break;
 		default:
 			break;
 		}
