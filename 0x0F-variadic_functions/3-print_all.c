@@ -25,7 +25,7 @@ void print_all(const char * const format, ...)
 	unsigned int i = 0;
 	char *holder, *sep0 = "", *sep1 = ", ";
 
-	if (format == NULL)
+	if (format == NULL || *format == '\0')
 		printf("(nil)");
 	va_start(ap, format);
 	while (format != NULL && format[i] != '\0')
