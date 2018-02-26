@@ -1,27 +1,9 @@
-#include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include "variadic_functions.h"
 
 /**
- * sep_printer - prints separators between inputs
- * @format: format of inputs
- * @j: index of format
- * @_bool: determines if loop should run
+ * pr_str - prints a string
+ * @str: string to be printed
  */
-void sep_printer(const char * const format, unsigned int j, int _bool)
-{
-	while (format[j] != '\0' && _bool == 0)
-	{
-		if (format[j] == 'c' || format[j] == 'i' ||
-		     format[j] == 'f' || format[j] == 's')
-		{
-			printf(", ");
-			break;
-		}
-		j++;
-	}
-}
-
 void pr_str(char *str)
 {
 	if (str != NULL)
@@ -41,37 +23,42 @@ void print_all(const char * const format, ...)
 {
 	va_list ap;
 	unsigned int i = 0;
-	unsigned int j;
 	char *holder;
-	int _bool = 0;
+	char *sep0 = "";
+	char *sep1 = ", ";
 
+	if (format == NULL)
+		return;
 	va_start(ap, format);
 	while (format[i] != '\0')
 	{
 		switch (format[i])
 		{
 		case 'c':
+			printf("%s", sep0);
+			sep0 = sep1;
 			printf("%c", (char)va_arg(ap, int));
 			break;
 		case 'i':
+			printf("%s", sep0);
+			sep0 = sep1;
 			printf("%d", va_arg(ap, int));
 			break;
 		case 'f':
+			printf("%s", sep0);
+			sep0 = sep1;
 			printf("%f", va_arg(ap, double));
 			break;
 		case 's':
+			printf("%s", sep0);
+			sep0 = sep1;
 			holder = va_arg(ap, char *);
 			pr_str(holder);
 		default:
-			_bool = 1;
 			break;
 		}
-		j = i + 1;
-		sep_printer(format, j, _bool);
-		_bool = 0;
 		i++;
 	}
 	printf("\n");
-
 	va_end(ap);
 }
