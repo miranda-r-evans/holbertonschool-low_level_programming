@@ -22,6 +22,17 @@ void sep_printer(const char * const format, unsigned int j, int _bool)
 	}
 }
 
+void pr_str(char *str)
+{
+	if (str != NULL)
+	{
+		printf("%s", str);
+		return;
+	}
+
+	printf("(nil)");
+}
+
 /**
  * print_all - prints all input
  * @format: format of the input
@@ -50,11 +61,7 @@ void print_all(const char * const format, ...)
 			break;
 		case 's':
 			holder = va_arg(ap, char *);
-			if (holder != NULL)
-				printf("%s", holder);
-			else
-				printf("(nil)");
-			break;
+			pr_str(holder);
 		default:
 			_bool = 1;
 			break;
