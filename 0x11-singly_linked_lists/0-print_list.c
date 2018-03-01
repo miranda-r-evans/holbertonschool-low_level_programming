@@ -41,15 +41,15 @@ void print_struct(const list_t *list)
 {
 	char *c_ptr = list->str;
 
+	if (c_ptr == NULL)
+	{
+		write(1, "[0] (nil)", 9);
+		return;
+	}
+
 	write(1, "[", 1);
 	print_itoa(list->len);
 	write(2, "] ", 2);
-
-	if (c_ptr == NULL)
-	{
-		write(1, "(nil)", 5);
-		return;
-	}
 
 	while (*c_ptr != '\0')
 	{
@@ -69,12 +69,10 @@ size_t print_list(const list_t *h)
 	size_t elmnts = 0;
 	const list_t *l_ptr = h;
 
-	while (1)
+	while (l_ptr != NULL)
 	{
-		if (l_ptr != NULL)
-			print_struct(l_ptr);
-		else
-			break;
+       		print_struct(l_ptr);
+
 		l_ptr = l_ptr->next;
 		elmnts++;
 		write(1, "\n", 1);
