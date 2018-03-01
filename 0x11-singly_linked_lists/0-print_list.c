@@ -1,5 +1,9 @@
 #include "lists.h"
 
+/**
+ * print_itoa - converts a number to a string and prints it
+ * @pain_in_a: number to convert and print
+ */
 void print_itoa(unsigned int pain_in_a)
 {
 	unsigned int dec = 1000000000;
@@ -29,15 +33,17 @@ void print_itoa(unsigned int pain_in_a)
 	}
 }
 
+/**
+ * print_struct - prints the length of the string in the struct and the string
+ * @list: pointer to struct to print
+ */
 void print_struct(const list_t *list)
 {
 	char *c_ptr = list->str;
 
 	write(1, "[", 1);
-       	print_itoa(list->len);
+	print_itoa(list->len);
 	write(2, "] ", 2);
-//       	_putchar(']');
-	//      	_putchar(' ');
 
 	if (c_ptr == NULL)
 	{
@@ -52,6 +58,12 @@ void print_struct(const list_t *list)
 	}
 }
 
+/**
+ * print_list - prints the strings in all the entries in the linked list
+ * @h: pointer to linked list
+ *
+ * Return: size of linked list
+ */
 size_t print_list(const list_t *h)
 {
 	size_t elmnts = 0;
