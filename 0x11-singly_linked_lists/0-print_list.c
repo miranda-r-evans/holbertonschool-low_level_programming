@@ -71,7 +71,7 @@ size_t print_list(const list_t *h)
 
 	while (l_ptr != NULL)
 	{
-       		print_struct(l_ptr);
+		print_struct(l_ptr);
 
 		l_ptr = l_ptr->next;
 		elmnts++;
