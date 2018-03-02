@@ -49,7 +49,7 @@ void print_struct(const list_t *list)
 
 	write(1, "[", 1);
 	print_itoa(list->len);
-	write(2, "] ", 2);
+	write(1, "] ", 2);
 
 	while (*c_ptr != '\0')
 	{
