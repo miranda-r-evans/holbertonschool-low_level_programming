@@ -1,9 +1,13 @@
 #include "lists.h"
 
+/**
+ * free_listint2 - frees and list and sets head to NULL
+ * @head: pointer to pointer to beginning of list
+ */
 void free_listint2(listint_t **head)
 {
 	listint_t *ptr = *head;
-	listint_t *temp;
+	listint_t *temp = NULL;
 
 	while (ptr != NULL)
 	{
