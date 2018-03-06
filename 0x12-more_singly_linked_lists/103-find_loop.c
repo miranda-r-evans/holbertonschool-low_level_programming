@@ -1,5 +1,12 @@
 #include "lists.h"
 
+/**
+ * find_listint_loop - finds the node at which a linked list enters
+ * an infinite loop
+ * @head: beginning of linked list
+ *
+ * Return: pointer to beginning of loop, or NULL if none
+ */
 listint_t *find_listint_loop(listint_t *head)
 {
 	listint_t *slow = NULL;
