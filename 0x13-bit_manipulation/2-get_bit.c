@@ -10,13 +10,13 @@
  */
 int get_bit(unsigned long int n, unsigned int index)
 {
-	unsigned int count = 1;
+	unsigned long int count = 1;
 	unsigned int i = 0;
 
-	while (count * 2 <= n)
+	while (count * 2 <= n && count <= ULONG_MAX >> 1)
 	{
 		i++;
-		count *= 2;
+		count = count << 1;
 	}
 
 	while (i >= index)

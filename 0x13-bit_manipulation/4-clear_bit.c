@@ -13,10 +13,10 @@ int clear_bit(unsigned long int *n, unsigned int index)
 	unsigned long int count = 1;
 	unsigned int i = 0;
 
-	while (count * 2 <= *n || i <= index)
+	while (count <= ULONG_MAX >> 1 && (count * 2 <= *n || i <= index))
 	{
 		i++;
-		count *= 2;
+		count = count << 1;
 	}
 
 	while (i >= index)
@@ -29,7 +29,7 @@ int clear_bit(unsigned long int *n, unsigned int index)
 			return (1);
 		}
 		i--;
-		count /= 2;
+		count = count >> 1;
 	}
 
 	return (-1);
