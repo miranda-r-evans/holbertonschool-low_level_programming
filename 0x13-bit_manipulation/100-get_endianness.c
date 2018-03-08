@@ -1,5 +1,10 @@
 #include "holberton.h"
 
+/**
+ * get_endianness - check endianness of machine
+ *
+ * Return: 1 if little endian, 0 if big endian
+ */
 int get_endianness(void)
 {
 	unsigned int x = 1;
