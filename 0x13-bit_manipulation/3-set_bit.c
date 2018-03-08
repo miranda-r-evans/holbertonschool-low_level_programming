@@ -23,10 +23,9 @@ int set_bit(unsigned long int *n, unsigned int index)
 	{
 		if (i == index)
 		{
-			if ((count & *n) > 0)
-				return (1);
+			if ((count & *n) == 0)
+				*n += count;
 
-			*n += count;
 			return (1);
 		}
 		i--;
