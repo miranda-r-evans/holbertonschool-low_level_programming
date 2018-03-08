@@ -8,8 +8,8 @@ void print_binary(unsigned long int n)
 {
 	unsigned long int count = 1;
 
-	while (count * 2 <= n)
-		count *= 2;
+	while (count * 2 <= n && count <= ULONG_MAX >> 1)
+		count = count << 1;
 
 	while (count > 0)
 	{
