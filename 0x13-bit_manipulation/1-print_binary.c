@@ -1,5 +1,9 @@
 #include "holberton.h"
 
+/**
+ * print_binary - prints an int in binary
+ * @n: number to be printed
+ */
 void print_binary(unsigned long int n)
 {
 	unsigned long int cpy = (double)n;

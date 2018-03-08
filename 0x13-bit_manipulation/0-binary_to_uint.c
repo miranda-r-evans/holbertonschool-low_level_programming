@@ -1,5 +1,11 @@
 #include "holberton.h"
 
+/**
+ * binary_to_uint - converts a binary number (in string form) to an int
+ * @b: binary number
+ *
+ * Return: the converted number, or 0 if there's an error
+ */
 unsigned int binary_to_uint(const char *b)
 {
 	const char *ptr = b;
