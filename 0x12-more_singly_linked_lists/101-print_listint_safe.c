@@ -9,7 +9,7 @@
 size_t print_listint_safe(const listint_t *head)
 {
 	size_t elmnts = 0;
-	listint_t *ptr_array[100];
+	listint_t *ptr_array[200];
 	listint_t *iter = (listint_t *)head;
 	int i;
 
@@ -18,7 +18,10 @@ size_t print_listint_safe(const listint_t *head)
 		for (i = 0; i < (int)elmnts; i++)
 		{
 			if (iter == ptr_array[i])
+			{
+				printf("-> %d\n", iter->n);
 				return (elmnts);
+			}
 		}
 		printf("[%p] %d\n", (void *)iter, iter->n);
 		ptr_array[i] = iter;
