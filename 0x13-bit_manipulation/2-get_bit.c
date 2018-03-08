@@ -10,36 +10,27 @@
  */
 int get_bit(unsigned long int n, unsigned int index)
 {
-	unsigned int i = 0;
-	unsigned long int cpy = n;
 	unsigned int count = 1;
-	unsigned int remain;
+	unsigned int i = 0;
 
-	while (count * 2 <= cpy)
+	while (count * 2 <= n)
 	{
 		i++;
 		count *= 2;
 	}
 
-	remain = cpy - count;
-
 	while (i >= index)
 	{
 		if (i == index)
 		{
-			if (cpy == count + remain || count <= remain)
+			if ((count & n) > 0)
 				return (1);
 			else
 				return (0);
 		}
-		if (count <= remain)
-		{
-			cpy = remain;
-			remain = cpy - count;
-		}
 
 		i--;
-		count /= 2;
+		count = count >> 1;
 	}
 
 	return (-1);
