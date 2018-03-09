@@ -11,26 +11,14 @@
 int set_bit(unsigned long int *n, unsigned int index)
 {
 	unsigned long int count = 1;
-	unsigned int i = 0;
 
-	while (count <= ULONG_MAX >> 1 && (count * 2 <= *n || i <= index))
-	{
-		i++;
-		count = count << 1;
-	}
+	if (index > sizeof(long int) * 8)
+		return (-1);
 
-	while (i >= index)
-	{
-		if (i == index)
-		{
-			if ((count & *n) == 0)
-				*n += count;
+	count = count << index;
 
-			return (1);
-		}
-		i--;
-		count = count >> 1;
-	}
+	if ((count & *n) == 0)
+		*n += count;
 
-	return (-1);
+	return (1);
 }
