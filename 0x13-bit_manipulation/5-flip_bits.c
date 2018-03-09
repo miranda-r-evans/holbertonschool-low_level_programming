@@ -15,13 +15,16 @@ unsigned int flip_bits(unsigned long int n, unsigned long int m)
 	unsigned long int c_c_and;
 	unsigned int sum = 0;
 
-	while (count <= n_m_xor && count <= ULONG_MAX >> 1)
+	while (count <= n_m_xor)
 	{
 		c_c_and = n_m_xor & count;
 		if (c_c_and > 0)
 			sum++;
 
-		count = count << 1;
+		if (count <= (ULONG_MAX >> 1))
+			count = count << 1;
+		else
+			break;
 	}
 
 	return (sum);
