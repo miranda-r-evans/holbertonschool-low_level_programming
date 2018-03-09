@@ -13,6 +13,9 @@ int get_bit(unsigned long int n, unsigned int index)
 	unsigned long int count = 1;
 	unsigned int i = 0;
 
+	if (index > sizeof(long int) * 8)
+		return (-1);
+
 	while (count * 2 <= n && count <= ULONG_MAX >> 1)
 	{
 		i++;
@@ -33,5 +36,5 @@ int get_bit(unsigned long int n, unsigned int index)
 		count = count >> 1;
 	}
 
-	return (-1);
+	return (0);
 }
