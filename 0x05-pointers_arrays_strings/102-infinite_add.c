@@ -7,51 +7,50 @@
  * @r: buffer in which sum will be stored
  * @size_r: size of the buffer
  *
- * I know the lack of spacing is ugly but holberton has a size limit on
- * functions that is inconvenient for complex work
- *
  * Return: pointer to r if sum can be stored in buffer, 0 otherwise
  */
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
-	char *rSt = r; char *n1St = n1; char *n2St = n2;
-	int sum; int carry = 0; char n1Store = '1'; char n2Store = '1';
+	int digit, carry = 0, n1i, n2i;
+	char *rPtr = r + (size_r - 1), *n1Ptr = n1, *n2Ptr = n2;
 
-	while (*n1)
-		n1++;
-	while (*n2)
-		n2++;
-	r = r + size_r - 1; *r = '\0'; r--; n1--; n2--;
-	while (r >= rSt)
+	while (*(n1Ptr + 1) != '\0')
+		n1Ptr++;
+	while (*(n2Ptr + 1) != '\0')
+		n2Ptr++;
+	*rPtr = '\0';
+	rPtr--;
+	n1i = *n1Ptr - 48;
+	n2i = *n2Ptr - 48;
+	while (rPtr >= r)
 	{
-		if (n1Store == '0' && n2Store == '0')
-			sum = n1Store + n2Store + carry - '0' - '0';
-		else if (n1Store == '0' && n2Store != '0')
-			sum = n1Store + *n2 + carry - '0' - '0';
-		else if (n2Store == '0' && n1Store != '0')
-			sum = *n1 + n2Store + carry - '0' - '0';
-		else
-			sum = *n1 + *n2 + carry - '0' - '0';
-		if (sum > 9)
+		digit = n1i + n2i + carry;
+		if (digit > 9)
 		{
-			carry = 1; sum = sum - 10; }
+			carry = 1;
+			digit -= 10;
+		}
 		else
 			carry = 0;
-		*r = sum + '0';
-		if (r > rSt && !(n1 == n1St && n2 == n2St && carry == 0))
-			r--;
-		else if (r >= rSt && n1 == n1St && n2 == n2St && carry == 0)
-			return (r);
-		else if (r == rSt && !(n1 == n1St && n2 == n2St && carry == 0))
-			return (0);
-		if (n1 == n1St)
-			n1Store = '0';
+		*rPtr = digit + 48;
+		if (rPtr == r || (carry == 0 && n1Ptr == n1 && n2Ptr == n2))
+			break;
+
+		rPtr--;
+		if (n1Ptr != n1)
+			n1i = *(n1Ptr - 1) - 48;
 		else
-			n1--;
-		if (n2 == n2St)
-			n2Store = '0';
+			n1i = 0;
+		if (n1Ptr > n1)
+			n1Ptr--;
+		if (n2Ptr != n2)
+			n2i = *(n2Ptr - 1) - 48;
 		else
-			n2--;
+			n2i = 0;
+		if (n2Ptr > n2)
+			n2Ptr--;
 	}
-	return (r);
+	if (carry != 0 || n1Ptr != n1 || n2Ptr != n2)
+		return (0);
+	return (rPtr);
 }

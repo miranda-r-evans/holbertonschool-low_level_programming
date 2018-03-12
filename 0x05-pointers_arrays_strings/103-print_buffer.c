@@ -8,42 +8,43 @@
  */
 void print_buffer(char *b, int size)
 {
-	char *end = b + size;
-	int posit = 0;
 	int i;
+	int j;
+	int k;
+	int posit = 0;
+	char *cpy = b;
 
-	if (size == 0)
-		printf("\n");
-	else
-		while (b < end)
+
+	for (i = 0; i < size; i += 10)
+	{
+		printf("%#08x: ", posit);
+		posit += 10;
+		if (size - i < 10)
+			k = size % 10;
+		else
+			k = 10;
+		for (j = 0; j < k; j++, cpy++)
 		{
-			printf("%#08x: ", posit);
-			posit += 10;
-
-			for (i = 1; i <= 10; i++)
-			{
-				if (b < end && *b < 16)
-					printf("0");
-				if (b < end)
-					printf("%0x", *b);
-				if (i % 2 == 0)
-					printf(" ");
-				if (b >= end)
-					printf("  ");
-				b++;
-			}
-			b -= 10;
-
-			for (i = 1; i <= 10; i++)
-			{
-				if (b < end && *b >= 32 && *b <= 126)
-					printf("%c", *b);
-				else if (b < end)
-					printf(".");
-				else
-					break;
-				b++;
-			}
-			printf("\n");
+			if (*cpy < 16)
+				printf("0");
+			printf("%0x", *cpy);
+			if (j % 2 == 1)
+				printf(" ");
 		}
+		for (; j < 10; j++)
+		{
+			printf("  ");
+			if (j % 2 == 1)
+				printf(" ");
+		}
+		cpy -= k;
+		for (j = 0; j < k; j++, cpy++)
+		{
+			if (*cpy >= 32 && *cpy <= 126)
+				printf("%c", *cpy);
+			else
+			printf(".");
+		}
+		printf("\n");
+	}
 }
