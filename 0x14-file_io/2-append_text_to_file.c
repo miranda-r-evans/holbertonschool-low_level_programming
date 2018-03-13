@@ -1,5 +1,11 @@
 #include "holberton.h"
 
+/**
+ * _strlen - find length of string
+ * @str: string to be evaluated
+ *
+ * Return: length of string
+ */
 int _strlen(char *str)
 {
 	int i = 0;
@@ -13,6 +19,13 @@ int _strlen(char *str)
 	return (i);
 }
 
+/**
+ * append_text_to_file - appends text to the end of a file
+ * @filename: file to be edited
+ * @text_content: text to be added
+ *
+ * Return: 1 if success, -1 if failure
+ */
 int append_text_to_file(const char *filename, char *text_content)
 {
 	int fd;
@@ -34,5 +47,5 @@ int append_text_to_file(const char *filename, char *text_content)
 
 	close(fd);
 
-	return(1);	
+	return (1);
 }

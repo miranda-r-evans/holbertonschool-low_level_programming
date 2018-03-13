@@ -1,5 +1,12 @@
 #include "holberton.h"
 
+/**
+ * read_textfile - reads a text file and prints it to the POSIX standard output
+ * @filename: name of file
+ * @letters: number of characters to be printed to stdout
+ *
+ * Return: characters that were printed, or 0 if failure
+ */
 ssize_t read_textfile(const char *filename, size_t letters)
 {
 	int fd = open(filename, O_RDONLY);
@@ -15,7 +22,7 @@ ssize_t read_textfile(const char *filename, size_t letters)
 
 	if (r < 1)
 		return (0);
-	
+
 	buf[999] = '\0';
 
 	write(1, buf, 1000);
