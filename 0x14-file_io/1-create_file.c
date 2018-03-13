@@ -35,9 +35,9 @@ int create_file(const char *filename, char *text_content)
 		return (-1);
 
 	if (access(filename, F_OK) != -1)
-		fd = open(filename, O_TRUNC | O_WRONLY);
+		fd = open(filename, O_RDWR | O_TRUNC);
 	else
-		fd = open(filename, O_CREAT | O_WRONLY, 0600);
+		fd = open(filename, O_RDWR | O_CREAT, 0600);
 
 	if (fd < 0)
 		return (-1);
