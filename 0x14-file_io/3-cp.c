@@ -52,13 +52,11 @@ int main(int ac, char **av)
 		exit(98);
 	}
 
-	if (access(av[2], F_OK) != -1)
-		fdTo = open(av[2], O_TRUNC | O_WRONLY);
-	else
-		fdTo = open(av[2], O_CREAT | O_WRONLY, 0664);
+	fdTo = open(av[2], O_WRONLY | O_CREAT | O_TRUNC, 0664);
 
 	if (fdTo == -1)
 	{
+		close(fdFrom);
 		write(2, "Error: Can't write to ", _strlen("Error: Can't write to "));
 		write(2, av[2], _strlen(av[2]));
 		write(2, "\n", 1);
@@ -67,11 +65,21 @@ int main(int ac, char **av)
 
 	do {
 		r = read(fdFrom, buf, 1024);
-		write(fdTo, buf, r);
+		if (write(fdTo, buf, r) != r)
+		{
+			close(fdFrom);
+			close(fdTo);
+			len = _strlen("Error: Can't write to ");
+			write(2, "Error: Can't write to ", len);
+			write(2, av[2], _strlen(av[2]));
+			write(2, "\n", 1);
+			exit(99);
+		}
 	} while (r != 0);
 
 	if (close(fdFrom) == -1)
 	{
+		close(fdTo);
 		write(2, "Error: Can't close fd", _strlen("Error: Can't close fd"));
 		write(2, av[1], _strlen(av[1]));
 		write(2, "\n", 1);

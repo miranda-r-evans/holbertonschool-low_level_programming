@@ -9,10 +9,14 @@
  */
 ssize_t read_textfile(const char *filename, size_t letters)
 {
-	int fd = open(filename, O_RDONLY);
+	int fd;
 	int r;
 	char buf[1000] = { '\0' };
 
+	if (filename == NULL || letters == 0)
+		return (0);
+
+	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		return (0);
 
@@ -20,15 +24,11 @@ ssize_t read_textfile(const char *filename, size_t letters)
 
 	close(fd);
 
-	if (r < 1)
+	if (r < 0)
 		return (0);
 
-	buf[999] = '\0';
-
-	write(1, buf, 1000);
-
-	if (r > 999)
-		return (999);
+	if (write(1, buf, r) != r)
+		return (0);
 
 	return (r);
 }
