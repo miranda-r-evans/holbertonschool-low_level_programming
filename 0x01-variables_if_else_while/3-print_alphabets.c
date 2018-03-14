@@ -1,19 +1,15 @@
 #include <stdio.h>
 
-/**
- * main - print alphabet in lowercase, then uppercase
- *
- * Return: 0 (Always Success)
- */
 int main(void)
 {
-	char *alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	char alpha;
 
-	while (*alpha != '\0')
-	{
-		putchar(*alpha);
-		alpha++;
-	}
+	for (alpha = 'a'; alpha <= 'z'; alpha++)
+		putchar(alpha);
+
+	for (alpha = 'A'; alpha <= 'Z'; alpha++)
+		putchar(alpha);
+
 	putchar('\n');
 
 	return (0);

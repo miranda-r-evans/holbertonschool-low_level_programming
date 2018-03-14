@@ -7,13 +7,11 @@
  */
 int main(void)
 {
-	char *rev_alpha = "zyxwvutsrqponmlkjihgfedcba";
+	char alpha;
 
-	while (*rev_alpha != '\0')
-	{
-		putchar(*rev_alpha);
-		rev_alpha++;
-	}
+	for (alpha = 'z'; alpha >= 'a'; alpha--)
+		putchar(alpha);
+
 	putchar('\n');
 
 	return (0);

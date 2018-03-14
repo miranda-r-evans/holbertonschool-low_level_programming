@@ -7,13 +7,14 @@
  */
 int main(void)
 {
-	char *hex = "0123456789abcdef";
+	char num;
 
-	while (*hex != '\0')
-	{
-		putchar(*hex);
-		hex++;
-	}
+	for (num = '0'; num <= '9'; num++)
+		putchar(num);
+
+	for (num = 'a'; num <= 'f'; num++)
+		putchar(num);
+
 	putchar('\n');
 
 	return (0);
