@@ -61,7 +61,7 @@ int main(int ac, char **av)
 	int fdFrom;
 	int fdTo;
 	int r;
-	char buf[1024] = { '\0' };
+	char buf[1024];
 
 	if (ac != 3)
 		_err(97, NULL);
