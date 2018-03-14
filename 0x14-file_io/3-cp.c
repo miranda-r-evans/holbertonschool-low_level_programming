@@ -83,7 +83,7 @@ int main(int ac, char **av)
 		if (write(fdTo, buf, r) != r)
 			_err(99, av[2]);
 
-	} while (r > 0);
+	} while (r > 1024);
 
 	if (close(fdFrom) == -1)
 	{
