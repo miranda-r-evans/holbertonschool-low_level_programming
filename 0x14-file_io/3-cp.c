@@ -26,34 +26,21 @@ int _strlen(char *str)
  */
 void _err(int i, char *fn)
 {
-	int len;
-
 	switch (i)
 	{
 	case 97:
-		len = _strlen("Usage: cp file_from file_to\n");
-		write(STDERR_FILENO, "Usage: cp file_from file_to\n", len);
-		exit(97);
+		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
 		break;
 	case 98:
-		len = _strlen("Error: Can't read from file ");
-		write(STDERR_FILENO, "Error: Can't read from file ", len);
-		write(STDERR_FILENO, fn, _strlen(fn));
-		write(STDERR_FILENO, "\n", 1);
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", fn);
 		exit(98);
 		break;
 	case 99:
-		len = _strlen("Error: Can't write to ");
-		write(STDERR_FILENO, "Error: Can't write to ", len);
-		write(STDERR_FILENO, fn, _strlen(fn));
-		write(STDERR_FILENO, "\n", 1);
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", fn);
 		exit(99);
 		break;
 	case 100:
-		len = _strlen("Error: Can't close fd ");
-		write(STDERR_FILENO, "Error: Can't close fd ", len);
-		write(STDERR_FILENO, fn, _strlen(fn));
-		write(STDERR_FILENO, "\n", 1);
+		dprintf(STDERR_FILENO, "Error: Can't close fd %s\n", fn);
 		exit(100);
 		break;
 	default:
