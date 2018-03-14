@@ -19,39 +19,45 @@ int _strlen(char *str)
 	return (i);
 }
 
+/**
+ * _err - prints a message to stderr and exits the program
+ * @i: error code
+ * @fn: name of file that caused the error
+ */
 void _err(int i, char *fn)
 {
 	int len;
 
-	switch (i) {
-		case 97:
-			len = _strlen("Usage: cp file_from file_to\n");
-			write(STDERR_FILENO, "Usage: cp file_from file_to\n", len);
-			exit(97);
-			break;
-		case 98:
-			len = _strlen("Error: Can't read from file ");
-			write(STDERR_FILENO, "Error: Can't read from file ", len);
-			write(STDERR_FILENO, fn, _strlen(fn));
-			write(STDERR_FILENO, "\n", 1);
-			exit(98);
-			break;
-		case 99:
-			len = _strlen("Error: Can't write to ");
-			write(STDERR_FILENO, "Error: Can't write to ", len);
-			write(STDERR_FILENO, fn, _strlen(fn));
-			write(STDERR_FILENO, "\n", 1);
-			exit(99);
-			break;
-		case 100:
-			len = _strlen("Error: Can't close fd ");
-			write(STDERR_FILENO, "Error: Can't close fd ", len);
-			write(STDERR_FILENO, fn, _strlen(fn));
-			write(STDERR_FILENO, "\n", 1);
-			exit(100);
-			break;
-		default:
-			break;
+	switch (i)
+	{
+	case 97:
+		len = _strlen("Usage: cp file_from file_to\n");
+		write(STDERR_FILENO, "Usage: cp file_from file_to\n", len);
+		exit(97);
+		break;
+	case 98:
+		len = _strlen("Error: Can't read from file ");
+		write(STDERR_FILENO, "Error: Can't read from file ", len);
+		write(STDERR_FILENO, fn, _strlen(fn));
+		write(STDERR_FILENO, "\n", 1);
+		exit(98);
+		break;
+	case 99:
+		len = _strlen("Error: Can't write to ");
+		write(STDERR_FILENO, "Error: Can't write to ", len);
+		write(STDERR_FILENO, fn, _strlen(fn));
+		write(STDERR_FILENO, "\n", 1);
+		exit(99);
+		break;
+	case 100:
+		len = _strlen("Error: Can't close fd ");
+		write(STDERR_FILENO, "Error: Can't close fd ", len);
+		write(STDERR_FILENO, fn, _strlen(fn));
+		write(STDERR_FILENO, "\n", 1);
+		exit(100);
+		break;
+	default:
+		break;
 	}
 }
 
