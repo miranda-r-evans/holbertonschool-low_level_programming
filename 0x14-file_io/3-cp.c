@@ -30,6 +30,7 @@ void _err(int i, char *fn)
 	{
 	case 97:
 		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
+		exit(97);
 		break;
 	case 98:
 		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", fn);
