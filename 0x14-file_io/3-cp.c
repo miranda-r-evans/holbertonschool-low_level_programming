@@ -62,13 +62,10 @@ int main(int ac, char **av)
 	int fdTo;
 	int r;
 	char buf[1024];
+	char err_buf[] = " ";
 
 	if (ac != 3)
 		_err(97, NULL);
-	if (av[1] == NULL)
-		_err(98, av[1]);
-	if (av[2] == NULL)
-		_err(99, av[2]);
 	fdFrom = open(av[1], O_RDONLY);
 
 	if (fdFrom < 0)
@@ -90,12 +87,14 @@ int main(int ac, char **av)
 
 	if (close(fdFrom) == -1)
 	{
-		_err(100, av[1]);
+		*err_buf = fdFrom + '0';
+		_err(100, err_buf);
 	}
 
 	if (close(fdTo) == -1)
 	{
-		_err(100, av[2]);
+		*err_buf = fdTo + '0';
+		_err(100, err_buf);
 	}
 
 	return (0);
