@@ -69,7 +69,7 @@ int main(int ac, char **av)
 	fdFrom = open(av[1], O_RDONLY);
 
 	if (fdFrom < 0)
-		_err(98, av[2]);
+		_err(98, av[1]);
 
 	fdTo = open(av[2], O_WRONLY | O_CREAT | O_TRUNC, 0664);
 
