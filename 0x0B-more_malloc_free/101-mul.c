@@ -1,172 +1,169 @@
-#include "holberton.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 /**
- * _print_err - prints error and exits program
+ * _strlen - finds length of a string
+ * @str: string to be evaluated
+ *
+ * Return: the length of the string
  */
-void _print_err(void)
+int _strlen(char *str)
 {
-/* I apologize for how ridiculously this code is written. */
-/* It's because of Holberton maximum string length reqs. */
-	_putchar('E'); _putchar('r'); _putchar('r');
-	_putchar('o'); _putchar('r'); _putchar('\n');
+	int i = 0;
+
+	while (*str != '\0')
+	{
+		i++;
+		str++;
+	}
+
+	return (i);
+}
+
+/**
+ * pr_err - prints error message and exits
+ */
+void pr_err(void)
+{
+	write(2, "Error\n", 6);
 	exit(98);
 }
 
 /**
- * _strlen - counts string length and calls print_err if there is a problem
- * @str: string thats length is counted
+ * _memclr - sets the values of an int buffer to 0
+ * @buf: buffer
+ * @len: length of buffer
+ */
+void _memclr(int **buf, int len)
+{
+	int i;
+	int *ptr = *buf;
+
+	for (i = 0; i < len; i++)
+	{
+		*ptr = 0;
+		ptr++;
+	}
+}
+
+/**
+ * dig_n_car - evaluates a digit to see if it needs to be carried
+ * @dig: pointer to digit, value is set to new digit value
  *
- * Return: string length
+ * Return: the carried value
  */
-int _strlen(char *str)
+int dig_n_car(int *dig)
 {
-	int len;
+	int car;
 
-	for (len = 0; *str != '\0'; len++)
+	if (*dig > 9)
 	{
-		if (*str > '9' || *str < '0')
-			_print_err();
-
-		str++;
+		car = *dig / 10;
+		*dig %= 10;
 	}
+	else
+		car = 0;
 
-	return (len);
+	return (car);
 }
 
 /**
- * print_prod - prints product of the multiplication
- * @prod: product that is printed
- * @len1: used for printing
- * @len2: used for printing
+ * mul - multiplies the values stored in two strings
+ * @n1: first string
+ * @n2: second string
+ *
+ * Return: pointer to a buffer storing the product
  */
-void print_prod(char *prod, int len1, int len2)
+int *mul(char *n1, char *n2)
 {
-	int i = 0;
+	int digit, carry = 0, place = 1, len1, len2, n1i, n2i;
+	int *buf = NULL, *b_ptr;
+	char *n1_ptr, *n2_ptr;
 
-	while (*prod == '0' && i < len1 + len2)
+	len1 = _strlen(n1);
+	len2 = _strlen(n2);
+	buf = malloc(sizeof(int) * (len1 + len2));
+	if (buf == NULL)
+		pr_err();
+	_memclr(&buf, len1 + len2);
+	n1_ptr = n1 + (len1 - 1);
+	n1i = *n1_ptr - '0';
+	while (n1_ptr >= n1)
 	{
-		i++;
-		prod++;
-	}
-	for (; i < len1 + len2 + 1; i++)
-	{
-		_putchar(*prod);
-		prod++;
-	}
-	_putchar('\n');
-}
-
-/**
- * mult - multiplies two strings
- * @s1_st: c
- * @s1_cpy: d
- * @s1_end: e
- * @s2_st: f
- * @s2_cpy: g
- * @prod_st: h
- * @temp_st: i
- * @prod_cpy: j
- * @temp_cpy: k
- * @prod_end: l
- * @temp_end: o
- */
-void mult(char *s1_st, char *s1_cpy,
-	  char *s1_end, char *s2_st, char *s2_cpy, char *prod_st, char *temp_st,
-	  char *prod_cpy, char *temp_cpy, char *prod_end,
-	  char *temp_end)
-{
-	int digit, carry = 0;
-
-	while (s2_cpy >= s2_st)
-	{
-		s2_cpy--; temp_cpy = temp_end - 1; s1_cpy = s1_end - 1;
-		while (s1_cpy >= s1_st)
+		carry = 0;
+		b_ptr = buf + (len1 + len2 - place);
+		n2_ptr = n2 + (len2 - 1);
+		n2i = *n2_ptr - '0';
+		while (n2_ptr >= n2)
 		{
-			digit = (*s1_cpy - '0') * (*s2_cpy - '0') + carry;
-			if (digit > 9)
+			if (*n1_ptr > '9' || *n1_ptr < '0' || *n2_ptr > '9' || *n2_ptr < '0')
 			{
-				carry = digit / 10; digit = digit % 10;
+				free(buf);
+				pr_err();
+			}
+			digit = n1i * n2i + carry;
+			carry = dig_n_car(&digit);
+			*b_ptr += digit;
+			carry += dig_n_car(b_ptr);
+			if (b_ptr == buf)
+				break;
+			if (n2_ptr != n2)
+			{
+				n2i = *(n2_ptr - 1) - '0';
+				n2_ptr--;
 			}
 			else
-				carry = 0;
-			*temp_cpy = digit + '0'; temp_cpy--;
-			if (s1_cpy == s1_st)
-				break;
-			s1_cpy--;
+				n2i = 0;
+			b_ptr--;
 		}
-		*temp_cpy = carry + '0'; carry = 0; temp_cpy = temp_end - 1;
-		if (prod_end > prod_st)
-			prod_end--;
-		prod_cpy = prod_end;
-		while (temp_cpy >= temp_st)
+		carry = dig_n_car(b_ptr);
+		if (n1_ptr != n1)
 		{
-			digit = (*temp_cpy - '0') + (*prod_cpy - '0') + carry;
-			if (digit > 9)
-			{
-				carry = 1; digit = digit % 10;
-			}
-			else
-				carry = 0;
-			*prod_cpy = digit + '0';
-			if (prod_cpy == prod_st || temp_cpy == temp_st)
-				break;
-			temp_cpy--; prod_cpy--;
+			n1i = *(n1_ptr - 1) - '0';
+			n1_ptr--;
 		}
-		if (s2_cpy == s2_st)
+		else
 			break;
+		place++;
 	}
+
+	return (buf);
 }
 
 /**
- * main - multiplies the numbers given from input
- * @ac: number of elements in av
- * @av: input from command line
+ * main - multiplies two numbers from input
+ * @ac: number of values from input
+ * @av: values from input
  *
  * Return: 0 (Always Success)
  */
 int main(int ac, char **av)
 {
-	int len1, len2;
-	char *s1_st = av[1];
-	char *s1_cpy = s1_st;
-	char *s1_end;
-	char *s2_st = av[2];
-	char *s2_cpy = s2_st;
-	char *s2_end;
-	char *prod_st = NULL;
-	char *temp_st = NULL;
-	char *prod_cpy;
-	char *temp_cpy;
-	char *prod_end;
-	char *temp_end;
+	int len1, len2, i;
+	int *prod;
+	int *cpy;
+	char dig[] = " ";
 
 	if (ac != 3)
-		_print_err();
-	len1 = _strlen(s1_cpy); s1_end = s1_st + len1; len2 = _strlen(s2_cpy);
-	s2_end = s2_st + len2; prod_st = malloc(len1 + len2 + 2);
-	if (prod_st == NULL)
-		_print_err();
-	temp_st = malloc(len1 + len2 + 2);
-	if (temp_st == NULL)
-		_print_err();
-	prod_cpy = prod_st; prod_end = prod_st + len1 + len2 + 1;
-	while (prod_cpy < prod_end)
+		pr_err();
+
+	prod = mul(av[1], av[2]);
+	cpy = prod;
+	len1 = _strlen(av[1]);
+	len2 = _strlen(av[2]);
+
+	for (i = 0; i < len1 + len2 - 1 && *cpy == 0; i++, cpy++)
+		;
+	for (; i < len1 + len2; i++, cpy++)
 	{
-		*prod_cpy = '0'; prod_cpy++;
+		*dig = *cpy + '0';
+		write(1, dig, 1);
 	}
-	*prod_cpy = '\0'; temp_cpy = temp_st;
-	temp_end = temp_st + len1 + len2 + 1;
-	while (temp_cpy < temp_end)
-	{
-		*temp_cpy = '0'; temp_cpy++;
-	}
-	*temp_cpy = '\0'; s2_cpy = s2_end;
-	mult(s1_st, s1_cpy, s1_end, s2_st, s2_cpy,
-	     prod_st, temp_st, prod_cpy, temp_cpy, prod_end, temp_end);
-	prod_cpy = prod_st; print_prod(prod_cpy, len1, len2);
-	free(prod_st); free(temp_st);
+	write(1, "\n", 1);
+
+	free(prod);
 	return (0);
 }
+
