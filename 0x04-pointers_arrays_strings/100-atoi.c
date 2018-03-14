@@ -1,5 +1,8 @@
 #include "holberton.h"
 
+#define TRUE 1
+#define FALSE 0
+
 /**
  * _atoi - convert string to int
  * @s: string to be converted
@@ -8,21 +11,23 @@
  */
 int _atoi(char *s)
 {
-	int n = 1;
-	int _bool = 1;
+	int n = 0;
+	int is_num = FALSE;
+	int sign = 1;
 	int s_int;
 
 	while (*s)
 	{
-		if (_bool == 0 && (*s > '9' || *s < '0'))
+		if (is_num == TRUE && (*s > '9' || *s < '0'))
 			break;
 		if (*s == '-')
-			n = -n;
-		if (*s >= '0' && *s <= '9' && _bool == 1)
+			sign = -sign;
+		if (is_num == FALSE && *s >= '1' && *s <= '9')
 		{
 			s_int = *s - 48;
-			n *= s_int;
-			_bool = 0;
+			n += s_int;
+			n *= sign;
+			is_num = TRUE;
 		}
 		else if (*s >= '0' && *s <= '9')
 		{
@@ -35,7 +40,7 @@ int _atoi(char *s)
 		s++;
 	}
 
-	if (_bool == 1)
+	if (is_num == FALSE)
 		return (0);
 
 	return (n);
