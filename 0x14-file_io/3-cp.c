@@ -97,3 +97,5 @@ int main(int ac, char **av)
 		_err(100, err_buf);
 	}
 
+	return (0);
+}
