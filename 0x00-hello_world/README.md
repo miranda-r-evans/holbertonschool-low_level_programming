@@ -1,15 +1,7 @@
-This project was an exploration of using the compiler.
-We used gcc with various options.
-The programs and shell scripts include:
+4-puts.c - a C program that prints exactly "Programming is like building a multilingual puzzle, followed by a new line
 
-Running a file through the preprocessor
+5-printf.c - a C program that prints exactly with proper grammar, but the outcome is a piece of art,, followed by a new line
 
-Compiling but not linking a file
+6-size.c - a C program that prints the size of various types on the computer it is compiled and run on
 
-Generating assembly code of a file
-
-Basic printing
-
-Compiling a file and saving it in an output file
-
-Generation assembly code in intel syntax
+101-quote.c - a C program that prints exactly and that piece of art is useful" - Dora Korpar, 2015-10-19, followed by a new line, to the standard error
