@@ -1,14 +1,25 @@
 #include "holberton.h"
+#include <limits.h>
+
+#define TRUE 1
+#define FALSE 0
 
 /**
- * check_neg - prints a '-' if negative and returns absolute value
- * @n: number to be checked
- *
- * Return: absolute value of n as an unsigned int
+ * print_number - prints and int to stdout
+ * @n: int to be printed
  */
-unsigned int check_neg(int n)
+void print_number(int n)
 {
-	unsigned int x;
+	int is_min = FALSE;
+	int i_mask = 1000000000;
+	int digit = 0;
+
+	if (n == INT_MIN)
+	{
+		_putchar('-');
+		n = INT_MAX;
+		is_min = TRUE;
+	}
 
 	if (n < 0)
 	{
@@ -16,74 +27,26 @@ unsigned int check_neg(int n)
 		n = -n;
 	}
 
-	x = n;
-
-	return (x);
-}
-
-/**
- * make_i - obtain value for i
- * @x: the number that the value of i will be based on
- *
- * Return: the value of i
- */
-unsigned int make_i(unsigned int x)
-{
-	unsigned int i = 1;
-
-	while (i < x)
+	while (i_mask > 9 && digit == 0)
 	{
-		if (i < 1000000000)
-			i *= 10;
-		else
-			break;
+		digit = n / i_mask;
+		n %= i_mask;
+		i_mask /= 10;
 	}
 
-	return (i);
-}
+	if (digit != 0)
+		_putchar(digit + '0');
 
-/**
- * print_number - print an int
- * @n: int to be printed
- */
-void print_number(int n)
-{
-	unsigned int i;
-	unsigned int j;
-	unsigned int x;
-	unsigned int k;
-
-	unsigned int check_neg(int n);
-	unsigned int make_i(unsigned int x);
-
-	x = check_neg(n);
-
-	i = make_i(x);
-
-	if (x >= 1000000000)
+	while (i_mask > 9)
 	{
-		_putchar(x / 1000000000 + '0');
-		_putchar((x % 1000000000) / 100000000 + '0');
+		digit = n / i_mask;
+		_putchar(digit + '0');
+		n %= i_mask;
+		i_mask /= 10;
 	}
-	k = i;
 
-	while (i > 1)
-	{
-		if (i == x)
-			j = x / i;
-		else if (i == k)
-			j = (x / (i / 10));
-		else
-			j = (x % i) / (i / 10);
+	if (is_min == TRUE)
+		n += 1;
 
-		if (j <= 9)
-			_putchar(j + '0');
-		if (i == x || x == 0)
-			_putchar(0 + '0');
-		i = i / 10;
-	}
-	if (x == 0)
-		_putchar(0 + '0');
-	if (x == 1)
-		_putchar(1 + '0');
+	_putchar(n + '0');
 }

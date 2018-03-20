@@ -40,7 +40,7 @@ void print_buffer(char *b, int size)
 		cpy -= k;
 		for (j = 0; j < k; j++, cpy++)
 		{
-			if (*cpy >= 32 && *cpy <= 126)
+			if (*cpy >= ' ' && *cpy <= '~')
 				printf("%c", *cpy);
 			else
 			printf(".");
