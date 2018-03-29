@@ -3,51 +3,60 @@
 #include <stdlib.h>
 
 /**
+ *  _strlen - returns length of a string
+ * @s: string to be evaluated
+ *
+ * Return: the length of the string
+ */
+int _strlen(char *s)
+{
+	int len = 0;
+
+	if (s == NULL)
+		return (0);
+
+	while (*s != '\0')
+	{
+		len++;
+		s++;
+	}
+	return (len);
+}
+
+/**
  * str_concat - concatenates two strings
  * @s1: first string
  * @s2: second string
- *
- * I apologize for the lack of spacing - holberton checker reqs
  *
  * Return: a pointer to the new string, or NULL if failure
  */
 char *str_concat(char *s1, char *s2)
 {
-	char *array = NULL; char *array_cpy; char *s1_cpy = s1;
-	char *s2_cpy = s2; int len = 0; char _var = '\0';
+	int len = _strlen(s1) + _strlen(s2);
+	char *dest = malloc(len + 1);
+	char *ptr = dest;
 
-	if (s1 == NULL)
+	if (s1 != NULL)
 	{
-		s1_cpy = &_var;
+		while (*s1 != '\0')
+		{
+			*ptr = *s1;
+			ptr++;
+			s1++;
+		}
 	}
-	if (s2 == NULL)
-	{
-		s2_cpy = &_var;
-	}
-	array_cpy = s1_cpy;
-	for (; *array_cpy != '\0'; len++)
-		array_cpy++;
 
-	array_cpy = s2_cpy;
-	for (; *array_cpy != '\0'; len++)
-		array_cpy++;
+	if (s2 != NULL)
+	{
+		while (*s2 != '\0')
+		{
+			*ptr = *s2;
+			ptr++;
+			s2++;
+		}
+	}
 
-	array = malloc(sizeof(char) * (len + 1));
-	if (array == NULL)
-		return (NULL);
-	array_cpy = array;
-	while (*s1_cpy != '\0')
-	{
-		*array_cpy = *s1_cpy;
-		array_cpy++;
-		s1_cpy++;
-	}
-	while (*s2_cpy != '\0')
-	{
-		*array_cpy = *s2_cpy;
-		array_cpy++;
-		s2_cpy++;
-	}
-	*array_cpy = '\0';
-	return (array);
+	*ptr = '\0';
+
+	return (dest);
 }
