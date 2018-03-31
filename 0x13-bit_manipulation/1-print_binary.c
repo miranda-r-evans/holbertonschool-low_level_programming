@@ -6,10 +6,10 @@
  */
 void print_binary(unsigned long int n)
 {
-	unsigned long int count = 1;
+	unsigned long int count = MAX_MASK;
 
-	while (count * 2 <= n && count <= ULONG_MAX >> 1)
-		count = count << 1;
+	while ((count & n) == 0 && count > 1)
+	  count = count >> 1;
 
 	while (count > 0)
 	{

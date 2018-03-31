@@ -14,6 +14,7 @@ unsigned int flip_bits(unsigned long int n, unsigned long int m)
 	unsigned long int count = 1;
 	unsigned long int c_c_and;
 	unsigned int sum = 0;
+	const unsigned long int max = count << MAX_INDEX;
 
 	while (count <= n_m_xor)
 	{
@@ -21,7 +22,7 @@ unsigned int flip_bits(unsigned long int n, unsigned long int m)
 		if (c_c_and > 0)
 			sum++;
 
-		if (count <= (ULONG_MAX >> 1))
+		if (count < max)
 			count = count << 1;
 		else
 			break;

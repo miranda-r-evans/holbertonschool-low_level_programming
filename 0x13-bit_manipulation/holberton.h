@@ -5,6 +5,8 @@
 #include <unistd.h>
 #include <limits.h>
 
+#define MAX_INDEX ((sizeof(long int) * 8) - 1)
+
 unsigned int binary_to_uint(const char *b);
 
 void print_binary(unsigned long int n);
