@@ -11,20 +11,65 @@
 int find_words(char *str)
 {
 	int words = 0;
-	char *strCpy = str;
 
-	while (*strCpy != '\0')
+	while (*str == ' ')
+		str++;
+
+	while (*str != '\0')
 	{
-		if (strCpy == str && *strCpy != ' ')
+		if (*str == ' ')
+		{
+			*str = '\0';
 			words++;
-		else if (*strCpy != ' ' && *strCpy != '\0' &&  *(strCpy - 1)
-			== ' ')
-			words++;
-
-		strCpy++;
+			str++;
+			while (*str == ' ')
+				str++;
+		}
+		else
+			str++;
 	}
+	if (*(str - 1) != ' ')
+		words++;
 
 	return (words);
+}
+
+int _strlen(char *s)
+{
+	int i = 0;
+
+	if (s == NULL)
+		return (-1);
+
+	while (*s != '\0')
+	{
+		i++;
+		s++;
+	}
+
+	return (i);
+}
+
+char *_strdup(char *old_str)
+{
+	char *new_str = malloc(_strlen(old_str) + 1);
+	char *ptr;
+
+	if (new_str == NULL)
+		return (NULL);
+
+	ptr = new_str;
+
+	while (*old_str != '\0')
+	{
+		*ptr = *old_str;
+		old_str++;
+		ptr++;
+	}
+
+	*ptr = '\0';
+
+	return (new_str);
 }
 
 /**
@@ -35,44 +80,48 @@ int find_words(char *str)
  */
 char **strtow(char *str)
 {
-	char **array = NULL; char *strCpy = str;
-	int words = 0; int i; int j; int len;
+	char **array;
+	char **a_ptr;
+	char *new_str;
+	int len;
+	int i;
 
 	if (str == NULL || *str == '\0')
-	{
-		return (NULL);
-	}
-	words = find_words(str);
-	if (words == 0)
 		return (NULL);
 
-	array = malloc(sizeof(char *) * (words + 1));
+	new_str = _strdup(str);
+
+	len = find_words(new_str);
+
+	array = malloc(len + 1);
 	if (array == NULL)
 		return (NULL);
 
-	strCpy = str;
-	for (i = 0; i < words; i++)
-	{
-		while (*strCpy == ' ')
-			strCpy++;
-		for (len = 0; *strCpy != ' ' && *strCpy != '\0'; len++)
-			strCpy++;
+	a_ptr = array;
 
-		array[i] = malloc(sizeof(char) * (len + 1));
-		if (array[i] == NULL)
-		{
-			i--;
-			for (; i <= 0; i--)
-				free(array[i]);
-			free(array);
-			return (NULL);
-		}
-		strCpy -= len;
-		for (j = 0; j < len; j++)
-		{
-			array[i][j] = *strCpy;
-			strCpy++;
-		}
+	while (*new_str == ' ')
+		new_str++;
+
+	*array = new_str;
+
+	for (i = 1; i < len; i++)
+	{
+		while (*new_str != '\0')
+			new_str++;
+
+		new_str++;
+
+		while (*new_str == ' ')
+			new_str++;
+
+		a_ptr++;
+
+		*a_ptr = new_str;
 	}
+
+	a_ptr++;
+
+	*a_ptr = NULL;
+
 	return (array);
 }

@@ -7,10 +7,8 @@
  *
  * Return: 0 (Always Success)
  */
-int main(int argc, char *argv[])
+int main(__attribute__((unused))int argc, char *argv[])
 {
-	argc = argc;
-
 	while (*argv != NULL)
 	{
 		printf("%s\n", *argv);

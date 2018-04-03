@@ -13,6 +13,7 @@ int main(void)
 	int se;
 	int th;
 	int fo;
+/* first, second, third, forth (digit)*/
 
 	while (i < 100)
 	{

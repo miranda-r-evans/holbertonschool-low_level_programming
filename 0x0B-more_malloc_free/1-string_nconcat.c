@@ -4,24 +4,30 @@
 
 /**
  * len_finder - finds length of input strings
- * @s1_cpy: first string to be evaluated
- * @s2_cpy: second string to be evaluated, until n characters
+ * @s1: first string to be evaluated
+ * @s2: second string to be evaluated, until n characters
  * @n: limit on how many characters from s2 need to be evaluated
  *
- * Return: length of s1
+ * Return: length of s1 and at least part of s2
  */
-int len_finder(char *s1_cpy, char *s2_cpy, unsigned int n)
+int len_finder(char *s1, char *s2, unsigned int n)
 {
-	int len;
+	int len = 0;
 	unsigned int i;
 
-	for (len = 0; *s1_cpy != '\0'; len++)
-		s1_cpy++;
-
-	for (i = 0; *s2_cpy != '\0' && i < n; len++)
+	if (s1 != NULL)
 	{
-		i++;
-		s2_cpy++;
+		for (len = 0; *s1 != '\0'; len++)
+			s1++;
+	}
+
+	if (s2 != NULL)
+	{
+		for (i = 0; *s2 != '\0' && i < n; len++)
+		{
+			i++;
+			s2++;
+		}
 	}
 
 	return (len);
@@ -37,42 +43,40 @@ int len_finder(char *s1_cpy, char *s2_cpy, unsigned int n)
  */
 char *string_nconcat(char *s1, char *s2, unsigned int n)
 {
-	char *s1_cpy = s1;
-	char *s2_cpy = s2;
-	char _var = '\0';
 	char *str = NULL;
-	char *str_st;
+	char *ptr;
 	int len;
 	unsigned int i;
 
-	if (s1 == NULL)
-		s1_cpy = &_var;
-	if (s2 == NULL)
-		s2_cpy = &_var;
-
-	len = len_finder(s1_cpy, s2_cpy, n);
+	len = len_finder(s1, s2, n);
 
 	str = malloc(len + 1);
 	if (str == NULL)
 		return (NULL);
 
-	str_st = str;
+	ptr = str;
 
-	while (*s1_cpy != '\0')
+	if (s1 != NULL)
 	{
-		*str = *s1_cpy;
-		str++;
-		s1_cpy++;
+		while (*s1 != '\0')
+		{
+			*ptr = *s1;
+			ptr++;
+			s1++;
+		}
 	}
 
-	for (i = 0; *s2_cpy != '\0' && i < n; i++)
+	if (s2 != NULL)
 	{
-		*str = *s2_cpy;
-		str++;
-		s2_cpy++;
+		for (i = 0; *s2 != '\0' && i < n; i++)
+		{
+			*ptr = *s2;
+			ptr++;
+			s2++;
+		}
 	}
 
-	*str = '\0';
+	*ptr = '\0';
 
-	return (str_st);
+	return (str);
 }

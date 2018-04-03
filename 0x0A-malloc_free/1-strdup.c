@@ -3,6 +3,28 @@
 #include <stdlib.h>
 
 /**
+ * _strlen - finds length of a string
+ * @s: string to be measured
+ *
+ * Return: length of string
+ */
+int _strlen(char *s)
+{
+	int i = 0;
+
+	if (s == NULL)
+		return (0);
+
+	while (*s != '\0')
+	{
+		i++;
+		s++;
+	}
+
+	return (i);
+}
+
+/**
  * _strdup - allocates a space in memory for a copy of a string
  * @str: string a copy is made of
  *
@@ -10,32 +32,29 @@
  */
 char *_strdup(char *str)
 {
-	char *array = NULL;
-	char *array_cpy = str;
+	char *new_str = NULL;
+	char *new_ptr;
 	int len;
 
 	if (str == NULL)
 		return (NULL);
 
-	for (len = 0; *array_cpy != '\0'; len++)
-	{
-		array_cpy++;
-	}
+	len = _strlen(str);
 
-	array = malloc(sizeof(char) * (len + 1));
-	if (array == NULL)
+	new_str = malloc(sizeof(char) * (len + 1));
+	if (new_str == NULL)
 		return (NULL);
 
-	array_cpy = array;
+	new_ptr = new_str;
 
 	while (*str != '\0')
 	{
-		*array_cpy = *str;
-		array_cpy++;
+		*new_ptr = *str;
+		new_ptr++;
 		str++;
 	}
 
-	*array_cpy = '\0';
+	*new_ptr = '\0';
 
-	return (array);
+	return (new_str);
 }

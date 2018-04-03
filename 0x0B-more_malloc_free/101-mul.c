@@ -100,6 +100,7 @@ int *mul(char *n1, char *n2)
 		{
 			if (*n1_ptr > '9' || *n1_ptr < '0' || *n2_ptr > '9' || *n2_ptr < '0')
 			{
+				printf("%c %c\n", *n1_ptr, *n2_ptr);
 				free(buf);
 				pr_err();
 			}
@@ -148,12 +149,10 @@ int main(int ac, char **av)
 
 	if (ac != 3)
 		pr_err();
-
-	prod = mul(av[1], av[2]);
-	cpy = prod;
 	len1 = _strlen(av[1]);
 	len2 = _strlen(av[2]);
-
+	prod = mul(av[1], av[2]);
+	cpy = prod;
 	for (i = 0; i < len1 + len2 - 1 && *cpy == 0; i++, cpy++)
 		;
 	for (; i < len1 + len2; i++, cpy++)

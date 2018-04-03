@@ -11,23 +11,24 @@
 char *_strncat(char *dest, char *src, int n)
 {
 	int i;
-	char *p = dest;
+	char *ptr = dest;
 
-	while (*dest)
+	while (*ptr != '\0')
 	{
-		dest++;
+		ptr++;
 	}
 
 	for (i = 0; i < n; i++)
 	{
-		if (*src)
+		if (*src != '\0')
 		{
-			*dest = *src;
-			dest++;
+			*ptr = *src;
+			ptr++;
 			src++;
 		}
 	}
-	*dest = '\0';
 
-	return (p);
+	*ptr = '\0';
+
+	return (dest);
 }

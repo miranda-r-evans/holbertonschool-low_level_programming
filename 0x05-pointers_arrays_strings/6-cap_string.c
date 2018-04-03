@@ -8,31 +8,27 @@
  */
 char *cap_string(char *str)
 {
-	char *p = str;
+	char *ptr = str;
 	int _bool = 1;
 
-	while (*str)
+	while (*ptr)
 	{
-		if (*str == ' ' || *str == '\t' || *str == '\n')
+		if (*ptr == ' ' || *ptr == '\t' || *ptr == '\n'
+		    || *ptr == ',' || *ptr == ';' || *ptr == '.'
+		    || *ptr == '!' || *ptr == '?' || *ptr == '"'
+		    || *ptr == '(' || *ptr == ')' || *ptr == '{'
+		    || *ptr == '}')
 			_bool = 1;
-		else if (*str == ',' || *str == ';' || *str == '.')
-			_bool = 1;
-		else if (*str == '!' || *str == '?' || *str == '"')
-			_bool = 1;
-		else if (*str == '(' || *str == ')' || *str == '{')
-			_bool = 1;
-		else if (*str == '}')
-			_bool = 1;
-		else if (_bool == 1 && *str >= 'a' && *str <= 'z')
+		else if (_bool == 1 && *ptr >= 'a' && *ptr <= 'z')
 		{
-			*str -= 32;
+			*ptr -= 32;
 			_bool = 0;
 		}
 		else
 			_bool = 0;
 
-		str++;
+		ptr++;
 	}
 
-	return (p);
+	return (str);
 }

@@ -11,21 +11,21 @@
 char *_strncpy(char *dest, char *src, int n)
 {
 	int i;
-	char *p = dest;
+	char *ptr = dest;
 
 	for (i = 0; i < n; i++)
 	{
 		if (*src)
 		{
-			*dest = *src;
+			*ptr = *src;
 			src++;
 		}
 		else
 		{
-			*dest = '\0';
+			*ptr = '\0';
 		}
-		dest++;
+		ptr++;
 	}
 
-	return (p);
+	return (dest);
 }

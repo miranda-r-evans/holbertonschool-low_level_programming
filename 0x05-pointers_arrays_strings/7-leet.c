@@ -8,28 +8,27 @@
  */
 char *leet(char *str)
 {
-	char *p = str;
-	char letA[] = {'a', 'A', 'e', 'E', 'o', 'O', 't', 'T', 'l', 'L'};
-	char numA[] = {'4', '4', '3', '3', '0', '0', '7', '7', '1', '1'};
-	char *letCount = &letA[0];
-	char *numCount = &numA[0];
-	char *letStart = letCount;
-	char *numStart = numCount;
+	char *ptr = str;
+	char letA[] = {'a', 'A', 'e', 'E', 'o', 'O', 't', 'T', 'l', 'L', '\0'};
+	char numA[] = {'4', '4', '3', '3', '0', '0', '7', '7', '1', '1', '\0'};
+	char *letCount = letA;
+	char *numCount = numA;
 
-	while (*str)
+	while (*ptr != '\0')
 	{
-		while (*letCount)
+		while (*letCount != '\0')
 		{
-			if (*str == *letCount)
-				*str = *numCount;
+			if (*ptr == *letCount)
+				*ptr = *numCount;
 
 			letCount++;
 			numCount++;
 		}
-		letCount = letStart;
-		numCount = numStart;
-		str++;
+
+		letCount = letA;
+		numCount = numA;
+		ptr++;
 	}
 
-	return (p);
+	return (str);
 }

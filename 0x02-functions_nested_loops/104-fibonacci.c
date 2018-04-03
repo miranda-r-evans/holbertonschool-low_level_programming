@@ -8,19 +8,17 @@
 int main(void)
 {
 	int i;
-	unsigned long int m = 1;
-	unsigned long int temp0;
-	unsigned long int o = 1;
-	unsigned long int p;
-	unsigned long int temp1;
-	unsigned long int s;
+	unsigned long int m = 1, temp0, o = 1;
+	unsigned long int p, temp1, s;
 
 	for (i = 0; i < 98; i++)
 	{
 		if (i < 91)
 		{
 		printf("%lu, ", m);
-		temp0 = m, m = temp0 + o, o = temp0;
+		temp0 = m;
+		m = temp0 + o;
+		o = temp0;
 		}
 		else if (i == 91)
 		{

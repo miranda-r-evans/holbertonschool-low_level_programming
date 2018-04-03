@@ -9,13 +9,11 @@
 int _strlen(char *str)
 {
 	int i;
-	char *start = str;
 
 	for (i = 0; *str != '\0'; i++)
 	{
 		str++;
 	}
-	str = start;
 
 	return (i - 1);
 }
@@ -29,8 +27,6 @@ void puts_half(char *str)
 	int n;
 	int j;
 
-	int _strlen(char *str);
-
 	n = _strlen(str);
 
 	for (j = 0; *str != '\0'; j++)
@@ -41,5 +37,6 @@ void puts_half(char *str)
 		}
 		str++;
 	}
+
 	_putchar('\n');
 }
