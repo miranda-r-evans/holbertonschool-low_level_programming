@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 gcc -Wall -fPIC -c *.c
 
