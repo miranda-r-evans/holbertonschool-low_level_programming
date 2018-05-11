@@ -14,8 +14,14 @@ void hash_table_print(const hash_table_t *ht)
 	unsigned long int i;
 	int is_first = TRUE;
 
-	if (ht == NULL || ht->size == 0)
+	if (ht == NULL)
 	{
+		return;
+	}
+
+	if (ht->size == 0)
+	{
+		printf("{}\n");
 		return;
 	}
 
