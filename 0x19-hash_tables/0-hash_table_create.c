@@ -12,7 +12,7 @@ void zero_hash_table(hash_table_t *table, unsigned long int size)
 
 	for (i = 0; i < size; i++)
 	{
-		ptr = NULL;
+		*ptr = NULL;
 		ptr++;
 	}
 }
