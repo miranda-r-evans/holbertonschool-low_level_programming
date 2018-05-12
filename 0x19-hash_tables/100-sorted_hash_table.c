@@ -67,35 +67,39 @@ void set_sorted_list(shash_table_t *ht, shash_node_t *unset_node)
 	{
 		ht->shead = unset_node;
 		ht->stail = unset_node;
-		return;
-	}
-
-	while (node_ptr->snext != NULL &&
-	       strcmp(node_ptr->key, unset_node->key) < 0)
-	{
-		node_ptr = node_ptr->snext;
-	}
-
-	if (strcmp(node_ptr->key, unset_node->key) < 0)
-	{
-		node_ptr->snext = unset_node;
+		unset_node->sprev = NULL;
 		unset_node->snext = NULL;
-		unset_node->sprev = node_ptr;
-		ht->stail = unset_node;
 		return;
 	}
 
-	unset_node->snext = node_ptr;
-	unset_node->sprev = node_ptr->sprev;
-	if (node_ptr->sprev == NULL)
+	while (node_ptr != NULL)
 	{
-		ht->shead = unset_node;
+		if (strcmp(node_ptr->key, unset_node->key) > 0)
+		{
+			unset_node->snext = node_ptr;
+			unset_node->sprev = node_ptr->sprev;
+			if (node_ptr->sprev != NULL)
+			{
+				node_ptr->sprev->snext = unset_node;
+			}
+			node_ptr->sprev = unset_node;
+			if (ht->shead == node_ptr)
+			{
+				ht->shead = unset_node;
+			}
+			return;
+		}
+
+		node_ptr = node_ptr->next;
 	}
-	else
-	{
-		node_ptr->sprev->snext = unset_node;
-	}
-	node_ptr->sprev = unset_node;
+
+	node_ptr = ht->stail;
+	unset_node->snext = node_ptr->next;
+	node_ptr->snext = unset_node;
+
+	unset_node->sprev = node_ptr;
+
+	ht->stail = unset_node;
 }
 
 /**
@@ -122,35 +126,28 @@ int shash_table_set(shash_table_t *ht, const char *key, const char *value)
 
 	new_node = ht->array[index];
 
-	if (new_node != NULL)
+	while (new_node != NULL)
 	{
-		while (new_node->next != NULL &&
-		       strcmp(new_node->key, key) != 0)
-		{
-			new_node = new_node->next;
-		}
-
 		if (strcmp(new_node->key, key) == 0)
 		{
 			free(new_node->value);
 			new_node->value = strdup(value);
 			return (1);
 		}
-		new_node->next = malloc(sizeof(hash_node_t));
+
 		new_node = new_node->next;
 	}
-	else
-	{
-		new_node = malloc(sizeof(shash_node_t));
-		ht->array[index] = new_node;
-	}
+
+	new_node = malloc(sizeof(shash_node_t));
 	if (new_node == NULL)
 	{
 		return (0);
 	}
+
 	new_node->key = strdup(key);
 	new_node->value = strdup(value);
-	new_node->next = NULL;
+	new_node->next = ht->array[index];
+	ht->array[index] = new_node;
 
 	set_sorted_list(ht, new_node);
 

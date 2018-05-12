@@ -11,3 +11,5 @@
 5-hash_table_print.c - a function that prints a hash table
 
 6-hash_table_delete.c - a function that deletes a hash table
+
+100-sorted_hash_table.c - a sorted hash table, loosely based on [PHP](http://www.phpinternalsbook.com/hashtables/basic_structure.html)
