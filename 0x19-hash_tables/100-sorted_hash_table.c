@@ -90,7 +90,7 @@ void set_sorted_list(shash_table_t *ht, shash_node_t *unset_node)
 			return;
 		}
 
-		node_ptr = node_ptr->next;
+		node_ptr = node_ptr->snext;
 	}
 
 	node_ptr = ht->stail;
