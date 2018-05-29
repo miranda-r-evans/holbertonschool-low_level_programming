@@ -1,64 +1,52 @@
 #include "sort.h"
 
 /**
- * struct listint_a - linked list for radix sorting
- *
- * @n: value of a node
- * @next: points to next node
- */
-typedef struct listint_a
-{
-    int n;
-    struct listint_a *next;
-} listint_b;
-
-/**
  * pointer_set - sets pointers to NULL
  * @pMyArray: an array of pointers
  */
 void pointer_set(listint_b **pMyArray)
 {
-        int i;
+	int i;
 
-        for (i = 0; i < 10; i++, pMyArray++)
-        {
-                *pMyArray = NULL;
-        }
+	for (i = 0; i < 10; i++, pMyArray++)
+	{
+		*pMyArray = NULL;
+	}
 }
 
 /**
  * add_to_bucket - adds an int (as a node) to a bucket (member of node array)
  * @ppsBucketList: array of linked lists
  * @iMod: current modulo value for determining what bucket to add to
- * @iNodeVal - int value to be added
+ * @iNodeVal: int value to be added
  */
 void add_to_bucket(listint_b **ppsBucketList, int iMod, int iNodeVal)
 {
-        listint_b *psNewNode = malloc(sizeof(listint_b));
-        listint_b *psIter = ppsBucketList[iNodeVal % iMod];
-        int iDigit = iNodeVal % iMod / (iMod / 10);
+	listint_b *psNewNode = malloc(sizeof(listint_b));
+	listint_b *psIter = ppsBucketList[iNodeVal % iMod];
+	int iDigit = iNodeVal % iMod / (iMod / 10);
 
-        if (psNewNode == NULL)
-        {
-                exit(EXIT_FAILURE);
-        }
+	if (psNewNode == NULL)
+	{
+		exit(EXIT_FAILURE);
+	}
 
-        psIter = ppsBucketList[iDigit];
-        psNewNode->n = iNodeVal;
-        psNewNode->next = NULL;
+	psIter = ppsBucketList[iDigit];
+	psNewNode->n = iNodeVal;
+	psNewNode->next = NULL;
 
-        if (psIter == NULL)
-        {
-                ppsBucketList[iDigit] = psNewNode;
-        }
-        else
-        {
-                while (psIter->next != NULL)
-                {
-                        psIter++;
-                }
-                psIter->next = psNewNode;
-        }
+	if (psIter == NULL)
+	{
+		ppsBucketList[iDigit] = psNewNode;
+	}
+	else
+	{
+		while (psIter->next != NULL)
+		{
+			psIter++;
+		}
+		psIter->next = psNewNode;
+	}
 }
 
 /**
@@ -68,23 +56,23 @@ void add_to_bucket(listint_b **ppsBucketList, int iMod, int iNodeVal)
  */
 void buckets_to_array(listint_b **ppsBucketList, int *piArray)
 {
-        listint_b **ppsBucketIter = ppsBucketList;
-        listint_b *psNodeIter;
-        listint_b *psTmp;
+	listint_b **ppsBucketIter = ppsBucketList;
+	listint_b *psNodeIter;
+	listint_b *psTmp;
 
-        while (ppsBucketIter < ppsBucketList + 10)
-        {
-                psNodeIter = *ppsBucketIter;
-                while (psNodeIter != NULL)
-                {
-                        *piArray = psNodeIter->n;
-                        piArray++;
-                        psTmp = psNodeIter;
-                        psNodeIter = psNodeIter->next;
-                        free(psTmp);
-                }
-                ppsBucketIter++;
-        }
+	while (ppsBucketIter < ppsBucketList + 10)
+	{
+		psNodeIter = *ppsBucketIter;
+		while (psNodeIter != NULL)
+		{
+			*piArray = psNodeIter->n;
+			piArray++;
+			psTmp = psNodeIter;
+			psNodeIter = psNodeIter->next;
+			free(psTmp);
+		}
+		ppsBucketIter++;
+	}
 }
 
 /**
@@ -94,41 +82,41 @@ void buckets_to_array(listint_b **ppsBucketList, int *piArray)
  */
 void radix_sort(int *array, size_t size)
 {
-        listint_b **ppsBucketArray;
-        int *iIter;
-        int iMod = 10;
-        int bIsSorted = FALSE;
+	listint_b **ppsBucketArray;
+	int *iIter;
+	int iMod = 10;
+	int bIsSorted = FALSE;
 
-        if (array == NULL || size < 2)
-        {
-                return;
-        }
+	if (array == NULL || size < 2)
+	{
+		return;
+	}
 
-        ppsBucketArray = malloc(sizeof(listint_b *) * 10);
-        if (ppsBucketArray == NULL)
-        {
-                return;
-        }
+	ppsBucketArray = malloc(sizeof(listint_b *) * 10);
+	if (ppsBucketArray == NULL)
+	{
+		return;
+	}
 
-        while (bIsSorted == FALSE)
-        {
-                bIsSorted = TRUE;
-                pointer_set(ppsBucketArray);
-                iIter = array;
-                while (iIter < array + size)
-                {
-                        if (*iIter > iMod / 10)
-                        {
-                                bIsSorted = FALSE;
-                        }
-                        add_to_bucket(ppsBucketArray, iMod, *iIter);
-                        iIter++;
-                }
-                buckets_to_array(ppsBucketArray, array);
+	while (bIsSorted == FALSE)
+	{
+		bIsSorted = TRUE;
+		pointer_set(ppsBucketArray);
+		iIter = array;
+		while (iIter < array + size)
+		{
+			if (*iIter > iMod / 10)
+			{
+				bIsSorted = FALSE;
+			}
+			add_to_bucket(ppsBucketArray, iMod, *iIter);
+			iIter++;
+		}
+		buckets_to_array(ppsBucketArray, array);
 
-                print_array(array, size);
+		print_array(array, size);
 
-                iMod *= 10;
-        }
-        free (ppsBucketArray);
+		iMod *= 10;
+	}
+	free(ppsBucketArray);
 }

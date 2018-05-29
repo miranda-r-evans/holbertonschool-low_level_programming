@@ -7,42 +7,42 @@
  */
 void selection_sort(int *array, size_t size)
 {
-        int *piToSort;
-        int *piSmallest;
-        int *piSearcher;
-        int iTmp;
+	int *piToSort;
+	int *piSmallest;
+	int *piSearcher;
+	int iTmp;
 
-        if (array == NULL || size < 2)
-        {
-                return;
-        }
+	if (array == NULL || size < 2)
+	{
+		return;
+	}
 
-        piToSort = array;
+	piToSort = array;
 
-        while (piToSort < array + size)
-        {
-                piSmallest = array + (size - 1);
-                piSearcher = piSmallest;
+	while (piToSort < array + size)
+	{
+		piSmallest = array + (size - 1);
+		piSearcher = piSmallest;
 
-                while (piSearcher != piToSort)
-                {
-                        if (*piSearcher < *piSmallest)
-                        {
-                                piSmallest = piSearcher;
-                        }
+		while (piSearcher != piToSort)
+		{
+			if (*piSearcher < *piSmallest)
+			{
+				piSmallest = piSearcher;
+			}
 
-                        piSearcher--;
-                }
+			piSearcher--;
+		}
 
-                if (*piSmallest < *piToSort)
-                {
-                        iTmp = *piToSort;
-                        *piToSort = *piSmallest;
-                        *piSmallest = iTmp;
+		if (*piSmallest < *piToSort)
+		{
+			iTmp = *piToSort;
+			*piToSort = *piSmallest;
+			*piSmallest = iTmp;
 
-                        print_array(array, size);
-                }
+			print_array(array, size);
+		}
 
-                piToSort++;
-        }
+		piToSort++;
+	}
 }

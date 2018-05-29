@@ -6,14 +6,14 @@
  */
 void bridge(listint_t *pSBetween)
 {
-        if (pSBetween->prev != NULL)
-        {
-                pSBetween->prev->next = pSBetween->next;
-        }
-        if (pSBetween->next != NULL)
-        {
-                pSBetween->next->prev = pSBetween->prev;
-        }
+	if (pSBetween->prev != NULL)
+	{
+		pSBetween->prev->next = pSBetween->next;
+	}
+	if (pSBetween->next != NULL)
+	{
+		pSBetween->next->prev = pSBetween->prev;
+	}
 }
 
 /**
@@ -24,18 +24,18 @@ void bridge(listint_t *pSBetween)
  */
 void insert(listint_t *pSPrev, listint_t *pSNext, listint_t *pSNew)
 {
-        pSNew->next = pSNext;
-        pSNew->prev = pSPrev;
+	pSNew->next = pSNext;
+	pSNew->prev = pSPrev;
 
-        if (pSPrev != NULL)
-        {
-                pSPrev->next = pSNew;
-        }
+	if (pSPrev != NULL)
+	{
+		pSPrev->next = pSNew;
+	}
 
-        if (pSNext != NULL)
-        {
-                pSNext->prev = pSNew;
-        }
+	if (pSNext != NULL)
+	{
+		pSNext->prev = pSNew;
+	}
 }
 
 /**
@@ -45,38 +45,38 @@ void insert(listint_t *pSPrev, listint_t *pSNext, listint_t *pSNew)
  */
 void insertion_sort_list(listint_t **list)
 {
-        listint_t *pSIter;
-        listint_t *pSSwap;
+	listint_t *pSIter;
+	listint_t *pSSwap;
 
-        if (list == NULL || *list == NULL)
-        {
-                return;
-        }
+	if (list == NULL || *list == NULL)
+	{
+		return;
+	}
 
-        pSIter = *list;
-        pSSwap = pSIter->next;
+	pSIter = *list;
+	pSSwap = pSIter->next;
 
-        while (pSSwap != NULL)
-        {
-                if (pSSwap->n >= pSIter->n)
-                {
-                        pSIter = pSSwap;
-                        pSSwap = pSSwap->next;
-                        continue;
-                }
+	while (pSSwap != NULL)
+	{
+		if (pSSwap->n >= pSIter->n)
+		{
+			pSIter = pSSwap;
+			pSSwap = pSSwap->next;
+			continue;
+		}
 
-                while (pSSwap->n < pSSwap->prev->n)
-                {
-                        bridge(pSSwap);
-                        insert(pSSwap->prev->prev, pSSwap->prev, pSSwap);
-                        if (pSSwap->prev == NULL)
-                        {
-                                *list = pSSwap;
-                                print_list(*list);
-                                break;
-                        }
-                        print_list(*list);
-                }
-                pSSwap = pSIter->next;
-        }
+		while (pSSwap->n < pSSwap->prev->n)
+		{
+			bridge(pSSwap);
+			insert(pSSwap->prev->prev, pSSwap->prev, pSSwap);
+			if (pSSwap->prev == NULL)
+			{
+				*list = pSSwap;
+				print_list(*list);
+				break;
+			}
+			print_list(*list);
+		}
+		pSSwap = pSIter->next;
+	}
 }

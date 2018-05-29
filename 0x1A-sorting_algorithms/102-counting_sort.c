@@ -8,13 +8,13 @@
  */
 void _memset(int *piArray, int iSize, int iNum)
 {
-        int i;
+	int i;
 
-        for (i = 0; i < iSize; i++)
-        {
-                *piArray = iNum;
-                piArray++;
-        }
+	for (i = 0; i < iSize; i++)
+	{
+		*piArray = iNum;
+		piArray++;
+	}
 }
 
 /**
@@ -26,24 +26,24 @@ void _memset(int *piArray, int iSize, int iNum)
  */
 int find_biggest(int *piArray, size_t iSize)
 {
-        int *piIter = piArray;
-        int iBig = *piIter;
+	int *piIter = piArray;
+	int iBig = *piIter;
 
-        while (piIter < piArray + iSize)
-        {
+	while (piIter < piArray + iSize)
+	{
 
-                if (*piIter < 1)
-                {
-                        exit(EXIT_FAILURE);
-                }
-                if (*piIter > iBig)
-                {
-                        iBig = *piIter;
-                }
-                piIter++;  
-        }
+		if (*piIter < 1)
+		{
+			exit(EXIT_FAILURE);
+		}
+		if (*piIter > iBig)
+		{
+			iBig = *piIter;
+		}
+		piIter++;
+	}
 
-        return (iBig);
+	return (iBig);
 }
 
 /**
@@ -54,23 +54,23 @@ int find_biggest(int *piArray, size_t iSize)
  */
 void sort_original(int *piCount, int *piOrig, size_t iCountSize)
 {
-        int *piCountIter = piCount;
-        int i = 0;
+	int *piCountIter = piCount;
+	int i = 0;
 
-        *piOrig = 0;
+	*piOrig = 0;
 
-        while (piCountIter < piCount + iCountSize)
-        {
-                if (*piCountIter > i)
-                {
-                        i++;
-                        piOrig++;
-                        *piOrig = *(piOrig - 1);
-                }
+	while (piCountIter < piCount + iCountSize)
+	{
+		if (*piCountIter > i)
+		{
+			i++;
+			piOrig++;
+			*piOrig = *(piOrig - 1);
+		}
 
-                (*piOrig)++;
-                piCountIter++;
-        }
+		(*piOrig)++;
+		piCountIter++;
+	}
 }
 
 /**
@@ -80,64 +80,64 @@ void sort_original(int *piCount, int *piOrig, size_t iCountSize)
  */
 void fill_out_count_array(int *piCount, int iSize)
 {
-        int *piBackward;
-        int *piForward;
+	int *piBackward;
+	int *piForward;
 
-        piBackward = piCount + iSize - 1;
+	piBackward = piCount + iSize - 1;
 
-        while (piBackward > piCount)
-        {
-                if (*piBackward == 1)
-                {
-                        piForward = piBackward + 1;
-                        while (piForward < piCount + iSize)
-                        {
-                                *piForward += 1;
-                                piForward++;
-                        }
-                        *piForward += 1;
-                }
-                piBackward--;
-        }
+	while (piBackward > piCount)
+	{
+		if (*piBackward == 1)
+		{
+			piForward = piBackward + 1;
+			while (piForward < piCount + iSize)
+			{
+				*piForward += 1;
+				piForward++;
+			}
+			*piForward += 1;
+		}
+		piBackward--;
+	}
 }
 
 /**
- * counting_sort - sorts an array by using array values as 
+ * counting_sort - sorts an array by using array values as
  * indices for another array
  * @array: array to be sorted
  * @size: size of array
  */
 void counting_sort(int *array, size_t size)
 {
-        int *piCount;
-        int *piIter;
-        int iBig;
+	int *piCount;
+	int *piIter;
+	int iBig;
 
-        if (array == NULL || size < 2)
-        {
-                return;
-        }
+	if (array == NULL || size < 2)
+	{
+		return;
+	}
 
-        iBig = find_biggest(array, size);
+	iBig = find_biggest(array, size);
 
-        piCount = malloc(sizeof(int) * (iBig + 1));
-        if (piCount == NULL)
-        {
-                return;
-        }
-        _memset(piCount, iBig + 1, 0);
+	piCount = malloc(sizeof(int) * (iBig + 1));
+	if (piCount == NULL)
+	{
+		return;
+	}
+	_memset(piCount, iBig + 1, 0);
 
-        piIter = array;
+	piIter = array;
 
-        while (piIter < array + size)
-        {
-                piCount[*piIter] = 1;
-                piIter++;
-        }
+	while (piIter < array + size)
+	{
+		piCount[*piIter] = 1;
+		piIter++;
+	}
 
-        fill_out_count_array(piCount, iBig);
+	fill_out_count_array(piCount, iBig);
 
-        print_array(piCount, iBig + 1);
+	print_array(piCount, iBig + 1);
 
-        sort_original(piCount, array, iBig);
+	sort_original(piCount, array, iBig);
 }
