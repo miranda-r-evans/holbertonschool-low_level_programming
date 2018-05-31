@@ -49,8 +49,8 @@ void sort_down(int *piArray, size_t iSize, size_t iUnSorted, int iIndex)
  */
 void max_heap(int *piArray, size_t iSize)
 {
-	size_t iChild = iSize - 1;
-	size_t iParent;
+	int iChild = iSize - 1;
+	int iParent;
 
 	if ((iChild & 1) == 1)
 	{
@@ -64,7 +64,7 @@ void max_heap(int *piArray, size_t iSize)
 	while (TRUE)
 	{
 		sort_down(piArray, iSize, iSize, iParent);
-		if (iParent == 0)
+		if (iParent <= 0)
 		{
 			break;
 		}

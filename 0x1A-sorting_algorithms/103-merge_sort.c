@@ -52,14 +52,13 @@ void buffer_to_array(int *piBuffer, int *piArray, int *piArrayEnd)
  * @piLeftArray: array to be sorted
  * @iSize: size of piLeftArray
  */
-void merge(int *piLeftArray, size_t iSize)
+void merge(int *piLeftArray, size_t iSize, int *piBuffer)
 {
 	int *piLeftEnd = piLeftArray + (iSize / 2 - 1);
 	int *piRightEnd = piLeftArray + (iSize - 1);
 	int *piRightArray = piLeftEnd + 1;
 	int *piLeftIter = piLeftArray;
 	int *piRightIter = piRightArray;
-	int *piBuffer;
 	int *piBufIter;
 
 	if (iSize < 2)
@@ -67,16 +66,10 @@ void merge(int *piLeftArray, size_t iSize)
 		return;
 	}
 
-	merge(piLeftArray, iSize / 2);
-	merge(piRightArray, (iSize + 1) / 2);
+	merge(piLeftArray, iSize / 2, piBuffer);
+	merge(piRightArray, (iSize + 1) / 2, piBuffer);
 
 	print_stuff(piLeftArray, piRightArray, piLeftEnd, piRightEnd);
-
-	piBuffer = malloc(sizeof(int) * iSize);
-	if (piBuffer == NULL)
-	{
-		return;
-	}
 
 	piBufIter = piBuffer;
 
@@ -108,8 +101,6 @@ void merge(int *piLeftArray, size_t iSize)
 	}
 
 	buffer_to_array(piBuffer, piLeftArray, piRightEnd);
-
-	free(piBuffer);
 }
 
 /**
@@ -120,10 +111,20 @@ void merge(int *piLeftArray, size_t iSize)
  */
 void merge_sort(int *array, size_t size)
 {
+	int *piBuffer;
+
 	if (array == NULL || size < 2)
 	{
 		return;
 	}
 
-	merge(array, size);
+	piBuffer = malloc(sizeof(int) * size);
+	if (piBuffer == NULL)
+	{
+		return;
+	}
+
+	merge(array, size, piBuffer);
+
+	free(piBuffer);
 }

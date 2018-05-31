@@ -141,9 +141,11 @@ void counting_sort(int *array, size_t size)
 		piIter++;
 	}
 
-	fill_out_count_array(piCount, iBig);
+	fill_out_count_array(piCount, iBig + 1);
 
 	print_array(piCount, iBig + 1);
 
-	sort_original(piCount, array, iBig);
+	sort_original(piCount, array, iBig + 1);
+
+	free(piCount);
 }

@@ -23,14 +23,15 @@ void pointer_set(listint_b **pMyArray)
 void add_to_bucket(listint_b **ppsBucketList, int iMod, int iNodeVal)
 {
 	listint_b *psNewNode = malloc(sizeof(listint_b));
-	listint_b *psIter = ppsBucketList[iNodeVal % iMod];
-	int iDigit = iNodeVal % iMod / (iMod / 10);
+	listint_b *psIter;
+	int iDigit;
 
 	if (psNewNode == NULL)
 	{
 		exit(EXIT_FAILURE);
 	}
 
+	iDigit = iNodeVal % iMod / (iMod / 10);
 	psIter = ppsBucketList[iDigit];
 	psNewNode->n = iNodeVal;
 	psNewNode->next = NULL;
@@ -43,7 +44,7 @@ void add_to_bucket(listint_b **ppsBucketList, int iMod, int iNodeVal)
 	{
 		while (psIter->next != NULL)
 		{
-			psIter++;
+			psIter = psIter->next;
 		}
 		psIter->next = psNewNode;
 	}

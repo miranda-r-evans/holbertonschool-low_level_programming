@@ -35,7 +35,7 @@ void partition(int *piBegin, int *piEnd, int *array, size_t size)
 		piIter++;
 	}
 
-	if (piInsert != piEnd)
+	if (*piInsert != *piEnd)
 	{
 		iTmp = *piEnd;
 		*piEnd = *piInsert;
@@ -43,12 +43,11 @@ void partition(int *piBegin, int *piEnd, int *array, size_t size)
 		print_array(array, size);
 	}
 
-	if (piInsert > piBegin)
+	if (piInsert != piEnd && piInsert != piBegin)
 	{
 		partition(piBegin, piInsert - 1, array, size);
+		partition(piInsert, piEnd, array, size);
 	}
-
-	partition(piInsert, piEnd, array, size);
 }
 
 /**

@@ -4,6 +4,13 @@
 #include "sort.h"
 #include <stdlib.h>
 
+/**
+ * enum kind_e - enum for labeling suits
+ * @SPADE: 0
+ * @HEART: 1
+ * @CLUB: 2
+ * @DIAMOND: 3
+ */
 typedef enum kind_e
 {
 	SPADE = 0,
