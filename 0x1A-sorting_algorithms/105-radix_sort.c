@@ -106,7 +106,7 @@ void radix_sort(int *array, size_t size)
 		iIter = array;
 		while (iIter < array + size)
 		{
-			if (*iIter > iMod / 10)
+			if (*iIter >= iMod)
 			{
 				bIsSorted = FALSE;
 			}

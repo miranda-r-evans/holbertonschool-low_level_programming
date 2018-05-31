@@ -55,24 +55,23 @@ int find_biggest(int *piArray, size_t iSize)
 void sort_original(int *piCount, int *piOrig, size_t iCountSize)
 {
 	int *piCountIter = piCount;
+	int iHighestVal = 0;
 	int i = 0;
-
-	*piOrig = 0;
 
 	while (piCountIter < piCount + iCountSize)
 	{
 		if (*piCountIter > i)
 		{
 			i++;
+			*piOrig = iHighestVal;
 			piOrig++;
-			*piOrig = *(piOrig - 1);
 		}
 		if (*piCountIter > i)
 		{
 			continue;
 		}
 
-		(*piOrig)++;
+		iHighestVal++;
 		piCountIter++;
 	}
 }
@@ -101,7 +100,6 @@ void fill_out_count_array(int *piCount, int iSize)
 				*piForward += iHowMany;
 				piForward++;
 			}
-/*			*piForward += 1;*/
 		}
 		piBackward--;
 	}

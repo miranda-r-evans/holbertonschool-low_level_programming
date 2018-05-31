@@ -51,6 +51,7 @@ void buffer_to_array(int *piBuffer, int *piArray, int *piArrayEnd)
  * merge - does the recursion an sorting
  * @piLeftArray: array to be sorted
  * @iSize: size of piLeftArray
+ * @piBuffer: buffer used to store sorted values in
  */
 void merge(int *piLeftArray, size_t iSize, int *piBuffer)
 {

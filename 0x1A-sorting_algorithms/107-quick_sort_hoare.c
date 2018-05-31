@@ -13,6 +13,7 @@ void hoare_parition(int *piBegin, int *piEnd, int *array, size_t size)
 	int iTmp;
 	int *piForwardIter = piBegin;
 	int *piBackwardIter = piEnd;
+	int isHomogenous = TRUE;
 
 	if (piBegin == piEnd)
 	{
@@ -23,11 +24,19 @@ void hoare_parition(int *piBegin, int *piEnd, int *array, size_t size)
 	{
 		while (*piForwardIter < iPivot)
 		{
+			if (*piForwardIter != iPivot)
+			{
+				isHomogenous = FALSE;
+			}
 			piForwardIter++;
 		}
 
 		while (*piBackwardIter > iPivot)
 		{
+			if (*piBackwardIter != iPivot)
+			{
+				isHomogenous = FALSE;
+			}
 			piBackwardIter--;
 		}
 
@@ -46,6 +55,11 @@ void hoare_parition(int *piBegin, int *piEnd, int *array, size_t size)
 
 		piForwardIter++;
 		piBackwardIter--;
+	}
+
+	if (isHomogenous == TRUE)
+	{
+		return;
 	}
 
 	hoare_parition(piBegin, piForwardIter - 1, array, size);
