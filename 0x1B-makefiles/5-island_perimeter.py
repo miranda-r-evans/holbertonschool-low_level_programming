@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/ python3
 '''
 function computes perimeter of island
 input is grid of 1's and 0's
@@ -11,11 +11,30 @@ no diagonals
 def island_perimeter(grid):
         ''' computes perimeter of island '''
 
-        area = 0
+        perimeter = 0
 
-        for row in grid:
-                for column in row:
-                        if column == 1:
-                                area += 1
+        for i in range(len(grid)):
+                for j in range(len(grid[0])):
+                        if grid[i][j] == 1:
+                                try:
+                                        if grid[i][j-1] == 0:
+                                                perimeter += 1
+                                except IndexError:
+                                        perimeter += 1
+                                try:
+                                        if grid[i][j+1] == 0:
+                                                perimeter += 1
+                                except IndexError:
+                                        perimeter += 1
+                                try:
+                                        if grid[i-1][j] == 0:
+                                                perimeter += 1
+                                except IndexError:
+                                        perimeter += 1
+                                try:
+                                        if grid[i+1][j] == 0:
+                                                perimeter += 1
+                                except IndexError:
+                                        perimeter += 1
 
-        return area * 2 + 2
+        return perimeter
