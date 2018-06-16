@@ -1,4 +1,4 @@
-#!/usr/bin/ python3
+#!/usr/bin/python3
 '''
 function computes perimeter of island
 input is grid of 1's and 0's
