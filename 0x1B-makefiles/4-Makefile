@@ -16,14 +16,12 @@ all: $(OBJ)
 $(OBJ): %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-clean: FORCE
+clean:
 	$(RM) -f *.~ $(NAME)
 
-oclean: FORCE
+oclean:
 	$(RM) -f $(OBJ)
 
-fclean: clean oclean FORCE
+fclean: clean oclean
 
-re: oclean all FORCE
-
-FORCE:
+re: oclean all
