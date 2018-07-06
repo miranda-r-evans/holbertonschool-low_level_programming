@@ -102,20 +102,25 @@ bst_t *bst_remove(bst_t *root, int value)
 	if (to_del->right != NULL)
 	{
 		to_rep = to_del->right;
+
+		while (to_rep->left != NULL)
+		{
+			to_rep = to_rep->left;
+		}
 	}
 	else if (to_del->left != NULL)
 	{
 		to_rep = to_del->left;
+
+		while (to_rep->right != NULL)
+		{
+			to_rep = to_rep->right;
+		}
 	}
 	else
 	{
 		replace(to_del, NULL);
 		return (NULL);
-	}
-
-	while (to_rep->left != NULL)
-	{
-		to_rep = to_rep->left;
 	}
 
 	if (to_del == root)
