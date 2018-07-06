@@ -16,14 +16,14 @@ int check_min_max(const binary_tree_t *node, int min, int max)
 	}
 
 	if (node->left != NULL &&
-	    (node->left->n < min ||
+	    (node->left->n <= min ||
 	    node->left->n >= node->n))
 	{
 		return (0);
 	}
 
 	if (node->right != NULL &&
-	    (node->right->n < node->n ||
+	    (node->right->n <= node->n ||
 	    node->right->n >= max))
 	{
 		return (0);
