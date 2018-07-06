@@ -105,9 +105,14 @@ int binary_tree_is_complete(const binary_tree_t *tree)
 		height = rows - 1;
 	}
 
-	if (tree == NULL || height == 0)
+	if (tree == NULL)
 	{
 		return (0);
+	}
+
+	if (height == 0)
+	{
+		return (1);
 	}
 
 	return (check_for_leaves(tree, 0, height, &no_more_child));
