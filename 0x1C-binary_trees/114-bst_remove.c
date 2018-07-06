@@ -40,11 +40,25 @@ void replace(bst_t *to_del, bst_t *to_rep)
 	{
 		if (to_rep->parent->left == to_rep)
 		{
-			to_rep->parent->left = NULL;
+			if (to_rep->left != NULL)
+			{
+				to_rep->parent->left = to_rep->left;	
+			}
+			else
+			{
+				to_rep->parent->left = to_rep->right;	
+			}
 		}
 		else
 		{
-			to_rep->parent->right = NULL;
+			if (to_rep->left != NULL)
+			{
+				to_rep->parent->left = to_rep->left;	
+			}
+			else
+			{
+				to_rep->parent->left = to_rep->right;	
+			}
 		}
 
 		to_rep->parent = to_del->parent;
