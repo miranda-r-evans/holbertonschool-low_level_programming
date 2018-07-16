@@ -3,7 +3,8 @@
 /**
  * modified_bst_insert - inserts of node into a avl tree
  * @tree: tree to be operated on
- * @value: value to be inserted
+ * @array: array of values
+ * @size: size of array
  *
  * Return: root or tree
  */
@@ -41,7 +42,8 @@ bst_t *modified_bst_insert(bst_t **tree, int *array, size_t size)
 		{
 			return (NULL);
 		}
-		if (modified_bst_insert(tree, array + half_index + 1, size - half_index - 1) == NULL)
+		if (modified_bst_insert(tree, array + half_index + 1,
+					size - half_index - 1) == NULL)
 		{
 			return (NULL);
 		}
@@ -61,7 +63,6 @@ bst_t *modified_bst_insert(bst_t **tree, int *array, size_t size)
 		{
 			child = parent->right;
 		}
-		printf("%d\n", parent->n);
 	}
 
 	child = binary_tree_node(parent, value);
@@ -81,14 +82,15 @@ bst_t *modified_bst_insert(bst_t **tree, int *array, size_t size)
 
 	if (half_index == 0)
 	{
-			return (*tree);
+		return (*tree);
 	}
 
 	if (modified_bst_insert(tree, array, half_index) == NULL)
 	{
 		return (NULL);
 	}
-	if (modified_bst_insert(tree, array + half_index + 1, size - half_index - 1) == NULL)
+	if (modified_bst_insert(tree, array + half_index + 1,
+				size - half_index - 1) == NULL)
 	{
 		return (NULL);
 	}
@@ -106,6 +108,11 @@ bst_t *modified_bst_insert(bst_t **tree, int *array, size_t size)
 avl_t *sorted_array_to_avl(int *array, size_t size)
 {
 	avl_t *tree = NULL;
+
+	if (array == NULL || size == 0)
+	{
+		return (NULL);
+	}
 
 	return (modified_bst_insert(&tree, array, size));
 }

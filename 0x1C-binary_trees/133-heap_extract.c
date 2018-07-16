@@ -48,11 +48,37 @@ void replace(bst_t *to_del, bst_t *to_rep)
 	{
 		if (to_rep->parent->left == to_rep)
 		{
-			to_rep->parent->left = NULL;
+			if (to_rep->left != NULL)
+			{
+				to_rep->parent->left = to_rep->left;
+				to_rep->left->parent = to_rep->parent;
+			}
+			else if (to_rep->right != NULL)
+			{
+				to_rep->parent->left = to_rep->right;
+				to_rep->right->parent = to_rep->parent;
+			}
+			else
+			{
+				to_rep->parent->left = NULL;
+			}
 		}
 		else
 		{
-			to_rep->parent->right = NULL;
+			if (to_rep->left != NULL)
+			{
+				to_rep->parent->right = to_rep->left;
+				to_rep->left->parent = to_rep->parent;
+			}
+			else if (to_rep->right != NULL)
+			{
+				to_rep->parent->right = to_rep->right;
+				to_rep->right->parent = to_rep->parent;
+			}
+			else
+			{
+				to_rep->parent->right = NULL;
+			}
 		}
 
 		to_rep->parent = to_del->parent;
@@ -81,7 +107,7 @@ void replace(bst_t *to_del, bst_t *to_rep)
 		to_del->right->parent = to_rep;
 	}
 
-	free (to_del);
+	free(to_del);
 }
 
 heap_t *switch_up(heap_t *node);

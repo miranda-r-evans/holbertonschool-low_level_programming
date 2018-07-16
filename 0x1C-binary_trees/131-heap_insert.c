@@ -63,10 +63,10 @@ heap_t *find_insert_point(heap_t *root, size_t tree_height)
 		{
 			if (branch_height < tree_height)
 			{
-				return (root);	
+				return (root);
 			}
-		
-			return (NULL);	
+
+			return (NULL);
 		}
 
 		return (root);
