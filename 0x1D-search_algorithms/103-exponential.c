@@ -121,7 +121,7 @@ int exponential_search(int *array, size_t size, int value)
 
 	if (result != -1)
 	{
-		return (result);
+		return (result + i);
 	}
 
 	return (-1);
